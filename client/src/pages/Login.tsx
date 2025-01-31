@@ -1,4 +1,5 @@
 import { useState, FormEvent, ChangeEvent } from "react";
+import { Link } from "react-router-dom";  // Import the Link component from react-router-dom
 
 import Auth from '../utils/auth';  // Import the Auth utility for managing authentication state
 import { login } from "../api/authAPI";  // Import the login function from the API
@@ -10,6 +11,8 @@ const Login = () => {
     username: '',
     password: ''
   });
+
+  const [errorMessage, setErrorMessage] = useState<string>('');  // State to manage
 
   // Handle changes in the input fields
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -23,14 +26,23 @@ const Login = () => {
   // Handle form submission for login
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    try {
-      // Call the login API endpoint with loginData
-      const data = await login(loginData);
-      // If login is successful, call Auth.login to store the token in localStorage
-      Auth.login(data.token);
-    } catch (err) {
-      console.error('Failed to login', err);  // Log any errors that occur during login
+
+    // Validate the data
+    if (loginData.username === '' || loginData.password === '') {
+      setErrorMessage('Please enter a username and password');
+      return;
     }
+    
+    // Call the login API endpoint with loginData
+    // Doing this as an execution chain to properly catch the Promise rejection message
+    await login(loginData)
+      .then(data => {
+        Auth.login(data.token);
+      })
+      .catch(err => {
+        console.error('Failed to login: ', err);  // Log any errors that occur during login
+        setErrorMessage(err.message);  // Show the error message received from the server
+      })
   };
 
   return (
@@ -63,7 +75,11 @@ const Login = () => {
         <div className="form-group">
           <button className="btn btn-primary" type='submit'>Login</button>
         </div>
+        <p className="error">{errorMessage}</p>
       </form>
+      <Link to='/signup'>
+        <p>No account? Click here to create one!</p>
+      </Link>
     </div>
   )
 };
