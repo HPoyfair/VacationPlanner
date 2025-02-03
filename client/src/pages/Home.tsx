@@ -1,15 +1,10 @@
 import { useState, useEffect, useLayoutEffect } from "react";
-import { retrieveUsers } from "../api/userAPI";
-import type { UserData } from "../interfaces/UserData";
-import ErrorPage from "./ErrorPage";
-import UserList from '../components/Users';
 import auth from '../utils/auth';
 import axios from "axios"; // Ensure axios is imported for the search API call
 
 const Home = () => {
-
-    const [users, setUsers] = useState<UserData[]>([]);
-    const [error, setError] = useState(false);
+    
+    const [user, setUser] = useState('');    
     const [loginCheck, setLoginCheck] = useState(false);
 
     // States for search bar
@@ -20,7 +15,7 @@ const Home = () => {
 
     useEffect(() => {
         if (loginCheck) {
-            fetchUsers();
+            fetchUser();
         }
     }, [loginCheck]);
 
@@ -32,17 +27,11 @@ const Home = () => {
         if (auth.loggedIn()) {
             setLoginCheck(true);
         }
-    };
+    };    
 
-    const fetchUsers = async () => {
-        try {
-            const data = await retrieveUsers();
-            setUsers(data)
-        } catch (err) {
-            console.error('Failed to retrieve tickets:', err);
-            setError(true);
-        }
-    };
+    const fetchUser = () => {
+        setUser(auth.getUsername());
+    }
 
     // Search handler
     const handleSearch = async () => {
@@ -63,10 +52,6 @@ const Home = () => {
             setSearchError("Error fetching data. Try again.");
         }
     };
-
-    if (error) {
-        return <ErrorPage />;
-    }
 
     return (
         <>
@@ -113,7 +98,7 @@ const Home = () => {
                         </p> */}
                     </div>
                 ) : (
-                    <UserList users={users} />
+                    <p>Welcome, {user}.</p>
                 )}
         </>
     );
