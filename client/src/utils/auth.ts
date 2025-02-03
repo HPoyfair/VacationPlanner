@@ -1,3 +1,6 @@
+import { jwtDecode } from 'jwt-decode';
+import { UserLogin } from '../interfaces/UserLogin';
+
 class AuthService {
   
   // Check if the user is logged in by retrieving the token from localStorage
@@ -10,6 +13,12 @@ class AuthService {
   getToken(): string {
     const loggedUser = localStorage.getItem('id_token') || '';
     return loggedUser;
+  }
+
+  getUsername(): string {
+    const token = this.getToken();
+    const decodedToken = jwtDecode<UserLogin>(token);
+    return decodedToken.username ?? '';
   }
 
   // Store the JWT token in localStorage and redirect to the home page
