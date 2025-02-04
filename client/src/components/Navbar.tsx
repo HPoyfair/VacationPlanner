@@ -24,6 +24,7 @@ const Navbar = () => {
     <div className="nav_container">
         {/* <h1 className="logo">Candidate Search</h1> */}
         <nav>
+            <h1 className="logo">Vacation Planner</h1>
             <ul>
                 <li><Link className="nav_link" to="/">Home</Link></li>
                 <li><Link className="nav_link" to="/saved">Saved Destinations</Link></li>

@@ -1,17 +1,34 @@
 import { useState, useEffect, useLayoutEffect } from "react";
+import React from "react";
 import auth from '../utils/auth';
-import axios from "axios"; // Ensure axios is imported for the search API call
+import axios from "axios"; // For the search API call
+import ErrorPage from "./ErrorPage";
+import '../index.css';
 
 const Home = () => {
-    
-    const [user, setUser] = useState('');    
+
+    //States for user login
+    const [user, setUser] = useState('');
     const [loginCheck, setLoginCheck] = useState(false);
 
     // States for search bar
-    const [location, setLocation] = useState("");
+    const [destination, setDestination] = useState("");
     const [date, setDate] = useState("");
     const [searchResults, setSearchResults] = useState(null);
     const [searchError, setSearchError] = useState("");
+
+    interface Recommendation {
+        id: string;
+        image: string;
+        name: string;
+        rating: number;
+        location: string;
+        price: string;
+    }
+
+    const [hotels, setHotels] = useState<Recommendation[]>([]);
+    const [restaurants, setRestaurants] = useState<Recommendation[]>([]);
+    const [entertainment, setEntertainment] = useState<Recommendation[]>([]);
 
     useEffect(() => {
         if (loginCheck) {
@@ -23,19 +40,40 @@ const Home = () => {
         checkLogin();
     }, []);
 
+    useEffect(() => {
+        if (!destination) return;
+
+        const fetchRecommendations = async () => {
+            try {
+                const hotelResponse = await axios.get('/api/recommendations?category=hotels&destination=${destination}');
+                const restaurantResponse = await axios.get('/api/recommendations?category=restaurants&destination =${destination}');
+                const entertainmentResponse = await axios.get('/api/recommendations?category=entertainment&destination=${destination}');
+
+                setHotels(hotelResponse.data);
+                setRestaurants(restaurantResponse.data);
+                setEntertainment(entertainmentResponse.data);
+            } catch (error) {
+                console.error("Error fetching recommendations:", error);
+            }
+        };
+
+        fetchRecommendations();
+    }, [destination]);
+
+
     const checkLogin = () => {
         if (auth.loggedIn()) {
             setLoginCheck(true);
         }
-    };    
+    };
 
     const fetchUser = () => {
         setUser(auth.getUsername());
     }
 
-    // Search handler
+
     const handleSearch = async () => {
-        if (!location || !date) {
+        if (!destination || !date) {
             alert("Please enter both location and date.");
             return;
         }
@@ -53,6 +91,21 @@ const Home = () => {
         }
     };
 
+    if (searchError) {
+        return <ErrorPage />;
+    }
+
+    // Recommendation Card Component to display each recommendation
+    const RecommendationCard: React.FC<{ recommendation: Recommendation }> = ({ recommendation }) => (
+        <div className="recommendation-card">
+            <img src={recommendation.image} alt={recommendation.name} />
+            <h3>{recommendation.name}</h3>
+            <p>{recommendation.location}</p>
+            <p className="rating">⭐ {recommendation.rating}</p>
+            <p className="price">{recommendation.price}</p>
+        </div>
+    );
+
     return (
         <>
             {/* Search Bar Section */}
@@ -60,19 +113,16 @@ const Home = () => {
                 <input
                     type="text"
                     placeholder="Enter destination"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    // className="border p-2 mr-2 rounded"
+                    value={destination}
+                    onChange={(e) => setDestination(e.target.value)}
                 />
                 <input
                     type="date"
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
-                    // className="border p-2 mr-2 rounded"
                 />
                 <button
                     onClick={handleSearch}
-                    // className="bg-blue-500 text-white p-2 rounded"
                 >
                     Search
                 </button>
@@ -88,6 +138,27 @@ const Home = () => {
                     <pre>{JSON.stringify(searchResults, null, 2)}</pre>
                 </div>
             )}
+            <div className="recommendation-container">
+                <h2>Top Hotels</h2>
+                <div className="recommendation-grid">
+                    {hotels.map((hotel) => <RecommendationCard key={hotel.id} recommendation={hotel} />)}
+                </div>
+            </div>
+
+            <div className="recommendation-container">
+                <h2>Top Restaurants</h2>
+                <div className="recommendation-grid">
+                    {restaurants.map((restaurant) => <RecommendationCard key={restaurant.id} recommendation={restaurant} />)}
+                </div>
+            </div>
+
+            <div className="recommendation-container">
+                <h2>Top Entertainment</h2>
+                <div className="recommendation-grid">
+                    {entertainment.map((ent) => <RecommendationCard key={ent.id} recommendation={ent} />)}
+                </div>
+            </div>
+
 
             {/* User List Section */}
             {
