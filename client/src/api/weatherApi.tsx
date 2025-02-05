@@ -6,8 +6,7 @@ const getCoordinates = async (location:string) => {
 
     try {
         const response = await fetch(url, {
-            headers: {
-                'Content-Type': 'application/json',
+            headers: {                
                 Authorization: `Bearer ${Auth.getToken()}`
             }
         });
@@ -32,8 +31,7 @@ const getWeather = async (lat:number, lon:number, date:string) => {
 
     try {
         const response = await fetch(url, {            
-            headers: {
-                'Content-Type': 'application/json',
+            headers: {                
                 Authorization: `Bearer ${Auth.getToken()}`
             }            
         });
