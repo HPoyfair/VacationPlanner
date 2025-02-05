@@ -423,12 +423,12 @@ button {
 }
 
 a {
-  color: #1b89bc;
+  color: #ffffff;
   text-decoration: none;
 }
 
 a:hover {
-  color: #065b83;
+  color: #ffffff;
   text-decoration: underline;
 }
 
@@ -1017,7 +1017,7 @@ a:hover {
 }
 
 .btn.btn-primary:hover {
-  background-color: #57779a;
+  background-color: #ffffff;
 }
 
 .btn.btn-danger {
