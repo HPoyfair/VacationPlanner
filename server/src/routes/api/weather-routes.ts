@@ -11,11 +11,7 @@ router.get('/location', async (req: Request, res: Response) => {
 
     try {
         // Call the geo request API to get the latitude and longitude of the location
-        const response = await fetch(url, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+        const response = await fetch(url);
 
         if (!response.ok) {
             const errorData = await response.json();
@@ -42,11 +38,7 @@ router.get('/', async (req: Request, res: Response) => {
     try {
         // Call the weather request API to get the weather details for the location and date
         const weatherUrl = `https://api.openweathermap.org/data/3.0/onecall/day_summary?lat=${lat}&lon=${lon}&date=${date}&units=imperial&appid=${apiKey}`;
-        const weatherResponse = await fetch(weatherUrl, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+        const weatherResponse = await fetch(weatherUrl);
 
         if (!weatherResponse.ok) {
             const errorData = await weatherResponse.json();
