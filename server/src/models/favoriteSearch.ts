@@ -42,18 +42,23 @@ export function FavoriteSearchFactory(sequelize: Sequelize) {
                 allowNull: false,
             },
             weatherResponse: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(10000),
                 allowNull: false,
             },
             placesResponse: {
-                type: DataTypes.STRING,
+                type: DataTypes.STRING(10000),
                 allowNull: false,
             },
+            userId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            }
         },
         {
             tableName: 'favorite_searches',
             sequelize,
-            underscored: true
+            underscored: true,
+            timestamps: false
         }
     );
 

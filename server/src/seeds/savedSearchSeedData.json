@@ -1,0 +1,230 @@
+[
+    {
+        "destination": "Tokyo",
+        "date": "2025-07-01",
+        "weatherResponse": {
+            "lat": 35.6828387,
+            "lon": 139.7594549,
+            "tz": "+09:00",
+            "date": "2025-07-01",
+            "units": "imperial",
+            "cloud_cover": {
+                "afternoon": 42.44
+            },
+            "humidity": {
+                "afternoon": 80.48
+            },
+            "precipitation": {
+                "total": 107353.81
+            },
+            "temperature": {
+                "min": 73.55,
+                "max": 80.96,
+                "afternoon": 79.58,
+                "night": 73.55,
+                "evening": 78.76,
+                "morning": 75.88
+            },
+            "pressure": {
+                "afternoon": 1008
+            },
+            "wind": {
+                "max": {
+                    "speed": 15.22,
+                    "direction": 210.95
+                }
+            }
+        },
+        "placesResponse": {}
+    },
+    {
+        "destination": "Paris",
+        "date": "2025-08-11",
+        "weatherResponse": {
+            "lat": 48.8588897,
+            "lon": 2.3200410217200766,
+            "tz": "+02:00",
+            "date": "2025-08-11",
+            "units": "imperial",
+            "cloud_cover": {
+                "afternoon": 66.8
+            },
+            "humidity": {
+                "afternoon": 60.98
+            },
+            "precipitation": {
+                "total": 0.06
+            },
+            "temperature": {
+                "min": 53.83,
+                "max": 80.13,
+                "afternoon": 72.64,
+                "night": 59.59,
+                "evening": 69.93,
+                "morning": 60.33
+            },
+            "pressure": {
+                "afternoon": 1015.69
+            },
+            "wind": {
+                "max": {
+                    "speed": 12.57,
+                    "direction": 254.97
+                }
+            }
+        },
+        "placesResponse": {}
+    },
+    {
+        "destination": "London",
+        "date": "2025-12-21",
+        "weatherResponse": {
+            "lat": 51.5073219,
+            "lon": -0.1276474,
+            "tz": "+00:00",
+            "date": "2025-12-21",
+            "units": "imperial",
+            "cloud_cover": {
+                "afternoon": 84.86
+            },
+            "humidity": {
+                "afternoon": 88.29
+            },
+            "precipitation": {
+                "total": 0.21
+            },
+            "temperature": {
+                "min": 34.09,
+                "max": 51.82,
+                "afternoon": 45.5,
+                "night": 42.82,
+                "evening": 43.81,
+                "morning": 42.37
+            },
+            "pressure": {
+                "afternoon": 1014.48
+            },
+            "wind": {
+                "max": {
+                    "speed": 18.19,
+                    "direction": 218.11
+                }
+            }
+        },
+        "placesResponse": {}
+    },
+    {
+        "destination": "Austin",
+        "date": "2025-08-21",
+        "weatherResponse": {
+            "lat": 30.2711286,
+            "lon": -97.7436995,
+            "tz": "-05:00",
+            "date": "2025-08-21",
+            "units": "imperial",
+            "cloud_cover": {
+                "afternoon": 33.78
+            },
+            "humidity": {
+                "afternoon": 72.83
+            },
+            "precipitation": {
+                "total": 0.03
+            },
+            "temperature": {
+                "min": 72.77,
+                "max": 97.79,
+                "afternoon": 79.84,
+                "night": 92.32,
+                "evening": 75.29,
+                "morning": 92.03
+            },
+            "pressure": {
+                "afternoon": 1014.85
+            },
+            "wind": {
+                "max": {
+                    "speed": 10.89,
+                    "direction": 152.69
+                }
+            }
+        },
+        "placesResponse": {}
+    },
+    {
+        "destination": "Hawaii",
+        "date": "2025-04-16",
+        "weatherResponse": {
+            "lat": 19.58955475,
+            "lon": -155.44869830348483,
+            "tz": "-10:00",
+            "date": "2025-04-16",
+            "units": "imperial",
+            "cloud_cover": {
+                "afternoon": 98.75
+            },
+            "humidity": {
+                "afternoon": 87.01
+            },
+            "precipitation": {
+                "total": 239976
+            },
+            "temperature": {
+                "min": 44.92,
+                "max": 45.35,
+                "afternoon": 45,
+                "night": 45.33,
+                "evening": 45.21,
+                "morning": 45.21
+            },
+            "pressure": {
+                "afternoon": 1013.49
+            },
+            "wind": {
+                "max": {
+                    "speed": 14.09,
+                    "direction": 109.06
+                }
+            }
+        },
+        "placesResponse": {}
+    },
+    {
+        "destination": "Denver",
+        "date": "2025-02-02",
+        "weatherResponse": {
+            "lat": 39.7392364,
+            "lon": -104.984862,
+            "tz": "-07:00",
+            "date": "2025-02-02",
+            "units": "imperial",
+            "cloud_cover": {
+                "afternoon": 99
+            },
+            "humidity": {
+                "afternoon": 39
+            },
+            "precipitation": {
+                "total": 0
+            },
+            "temperature": {
+                "min": 35.85,
+                "max": 63.68,
+                "afternoon": 55.36,
+                "night": 38.28,
+                "evening": 57.54,
+                "morning": 35.94
+            },
+            "pressure": {
+                "afternoon": 1006
+            },
+            "wind": {
+                "max": {
+                    "speed": 8.75,
+                    "direction": 128
+                }
+            }
+        },
+        "placesResponse": {}
+    }
+]

@@ -10,7 +10,7 @@ interface UserAttributes {
 }
 
 // Define the optional attributes for creating a new User
-interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
+interface UserCreationAttributes extends Optional<UserAttributes, 'id'> { }
 
 // Define the User class extending Sequelize's Model
 export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
@@ -18,9 +18,6 @@ export class User extends Model<UserAttributes, UserCreationAttributes> implemen
   public username!: string;
   public email!: string;
   public password!: string;
-
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
 
   // Method to hash and set the password for the user
   public async setPassword(password: string) {
@@ -54,6 +51,7 @@ export function UserFactory(sequelize: Sequelize): typeof User {
     {
       tableName: 'users',  // Name of the table in PostgreSQL
       sequelize,            // The Sequelize instance that connects to PostgreSQL
+      timestamps: false,
       hooks: {
         // Before creating a new user, hash and set the password
         beforeCreate: async (user: User) => {
