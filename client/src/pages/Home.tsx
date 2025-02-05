@@ -1,7 +1,8 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 import React from "react";
 import auth from '../utils/auth';
-import axios from "axios"; // For the search API call
+import { getCoordinates, getWeather } from "../api/weatherApi";
+//import axios from "axios"; // For the search API call
 import ErrorPage from "./ErrorPage";
 import '../index.css';
 
@@ -40,25 +41,25 @@ const Home = () => {
         checkLogin();
     }, []);
 
-    useEffect(() => {
-        if (!destination) return;
+    // useEffect(() => {
+    //     if (!destination) return;
 
-        const fetchRecommendations = async () => {
-            try {
-                const hotelResponse = await axios.get('/api/recommendations?category=hotels&destination=${destination}');
-                const restaurantResponse = await axios.get('/api/recommendations?category=restaurants&destination =${destination}');
-                const entertainmentResponse = await axios.get('/api/recommendations?category=entertainment&destination=${destination}');
+    //     const fetchRecommendations = async () => {
+    //         try {
+    //             const hotelResponse = await axios.get('/api/recommendations?category=hotels&destination=${destination}');
+    //             const restaurantResponse = await axios.get('/api/recommendations?category=restaurants&destination =${destination}');
+    //             const entertainmentResponse = await axios.get('/api/recommendations?category=entertainment&destination=${destination}');
 
-                setHotels(hotelResponse.data);
-                setRestaurants(restaurantResponse.data);
-                setEntertainment(entertainmentResponse.data);
-            } catch (error) {
-                console.error("Error fetching recommendations:", error);
-            }
-        };
+    //             setHotels(hotelResponse.data);
+    //             setRestaurants(restaurantResponse.data);
+    //             setEntertainment(entertainmentResponse.data);
+    //         } catch (error) {
+    //             console.error("Error fetching recommendations:", error);
+    //         }
+    //     };
 
-        fetchRecommendations();
-    }, [destination]);
+    //     fetchRecommendations();
+    // }, [destination]);
 
 
     const checkLogin = () => {
@@ -73,18 +74,28 @@ const Home = () => {
 
 
     const handleSearch = async () => {
+        setHotels([]);
+        setRestaurants([]);
+        setEntertainment([]);
+
         if (!destination || !date) {
             alert("Please enter both location and date.");
             return;
         }
 
         try {
+            // Get latitude and longitude for the Location
+            const location = await getCoordinates(destination);            
+
+            // Call the Weather API with the given coordinates and date
+            const weather = await getWeather(location.lat, location.lon, date);
+            
             // TODO: Make an API call to the server
-            const response = await axios.get("http://localhost:3000/api/", {
-                params: { location, date }
-            });
-            setSearchResults(response.data); // Store the search results
-            setSearchError(""); // Clear any previous search errors
+            // const response = await axios.get("http://localhost:3000/api/", {
+            //     params: { location, date }
+            // });
+            setSearchResults(weather); // Store the search results
+            // setSearchError(""); // Clear any previous search errors
         } catch (error) {
             console.error(error);
             setSearchError("Error fetching data. Try again.");
