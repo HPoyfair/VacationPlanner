@@ -2,25 +2,26 @@ import { FavoriteSearch } from '../interfaces/FavoriteSearch';
 import { useState, useEffect } from 'react';
 
 
-export default function SavedDestination() {
-    const sampleFavoritesData = [
-        {
-            destination: 'Paris',
-            date: new Date('2022-01-01'),
-            weatherResponse: 'Sunny',
-            placesResponse: 'Eiffel Tower, Louvre'
-        },
-        {
-            destination: 'New York',
-            date: new Date('2022-02-01'),
-            weatherResponse: 'Rainy',
-            placesResponse: 'Statue of Liberty, Central Park'
-        }
-    ]
+export default function SavedDestination() {    
     const [favorites, _setFavorites] = useState<FavoriteSearch[]>([]);
     const handleRemove = () => { }
     
     useEffect(() => {
+        const sampleFavoritesData = [
+            {
+                destination: 'Paris',
+                date: new Date('2022-01-01'),
+                weatherResponse: 'Sunny',
+                placesResponse: 'Eiffel Tower, Louvre'
+            },
+            {
+                destination: 'New York',
+                date: new Date('2022-02-01'),
+                weatherResponse: 'Rainy',
+                placesResponse: 'Statue of Liberty, Central Park'
+            }
+        ]
+
         _setFavorites(sampleFavoritesData);
     }, []);
 
