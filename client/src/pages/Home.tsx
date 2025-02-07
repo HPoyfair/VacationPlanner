@@ -2,6 +2,7 @@ import { useState, useEffect, useLayoutEffect } from "react";
 import React from "react";
 import auth from '../utils/auth';
 import { getCoordinates, getWeather } from "../api/weatherApi";
+import { getPlaces } from "../api/placesApi";
 //import axios from "axios"; // For the search API call
 import ErrorPage from "./ErrorPage";
 import '../index.css';
@@ -10,6 +11,7 @@ import WeatherDisplay from "../components/WeatherDisplay";
 
 interface SearchResults {
     weatherResults: WeatherResponse;
+    placesResults: string;
 }
 
 const Home = () => {
@@ -100,7 +102,9 @@ const Home = () => {
             //     params: { location, date }
             // });
             
-            setSearchResults({ weatherResults: weather });
+            const places = await getPlaces(location.lat, location.lon);
+
+            setSearchResults({ weatherResults: weather, placesResults: JSON.stringify(places) });
             
             // setSearchError(""); // Clear any previous search errors
         } catch (error) {
@@ -154,6 +158,8 @@ const Home = () => {
                 <div className="mt-4 p-4 border rounded bg-gray-100">
                     <h2 className="text-lg font-bold">Search Results:</h2>
                     <WeatherDisplay weather={searchResults.weatherResults} />                    
+                    <h2>Places results</h2>
+                    <p>{searchResults.placesResults}</p>
                 </div>
             )}
             <div className="recommendation-container">
