@@ -20,6 +20,7 @@ const Navbar = () => {
     checkLogin();  // Call checkLogin() function to update loginCheck state
   }, [loginCheck]);  // Dependency array ensures useEffect runs when loginCheck changes
 
+
   return (
     <div className="nav_container">
         {/* <h1 className="logo">Candidate Search</h1> */}
@@ -52,7 +53,7 @@ const Navbar = () => {
           </div>
         </div>
     </div>
-  )
+  );
 }
 
 export default Navbar;
