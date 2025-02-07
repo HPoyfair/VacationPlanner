@@ -69,4 +69,4 @@ const deleteFavorite = async (userId: number, favoriteId: number) => {
     }
 }
 
-export { saveFavorite, getFavorites, deleteFavorite };
+export { saveFavorit

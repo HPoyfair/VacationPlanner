@@ -18,4 +18,10 @@ const RecommendationCard = ({recommendation}: RecommendationCardProps) => {
             <h3>{recommendation.name}</h3>
             <p>{recommendation.location}</p>
             <p className="rating">⭐ {recommendation.rating}</p>
-            <p className="price">{recommendation.pri
+            <p className="price">{recommendation.price}</p>
+        </div>
+    );
+}
+
+
+export default RecommendationCard;

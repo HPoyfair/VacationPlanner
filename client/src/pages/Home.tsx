@@ -172,3 +172,14 @@ const Home = () => {
                 <div className="recommendation-grid">
                     {entertainment.map((ent) => <RecommendationCard key={ent.id} recommendation={ent} />)}
                 </div>
+            </div>
+    
+            <div>
+                <button onClick={saveItinerary}>Save Itinerary</button>
+            </div>
+        </div>
+    );
+    
+};
+
+export default Home;
