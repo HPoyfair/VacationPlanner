@@ -2,12 +2,20 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 import auth from '../utils/auth.js';
 import { getCoordinates, getWeather } from "../api/weatherApi";
+import { getPlaces } from "../api/placesApi";
 //import axios from "axios"; // For the search API call
 import '../index.css';
 import { saveFavorite } from '../api/appApi.js'
 import { UserData } from '../interfaces/UserData';
+import WeatherDisplay from "../components/WeatherDisplay.js";
 import SearchBar from "../components/searchBar.js";
 import RecommendationCard from "../components/recommendationCard.js";
+import WeatherResponse from "../interfaces/WeatherResponse.js";
+
+interface SearchResults {
+    weatherResponse: WeatherResponse;
+    placesResponse: string;
+}
 
 const Home = () => {
 
@@ -24,7 +32,7 @@ const Home = () => {
     const [destination, setDestination] = useState<string>("");
     const [date, setDate] = useState<string>("");
     console.log(typeof date);
-    const [searchResults, setSearchResults] = useState([]);
+    const [searchResults, setSearchResults] = useState<SearchResults | null>(null);
     const [searchError, setSearchError] = useState<string>("");
 
     interface Recommendation {
@@ -99,11 +107,13 @@ const Home = () => {
             // Call the Weather API with the given coordinates and date
             const weather = await getWeather(location.lat, location.lon, date);
 
+            const places = await getPlaces(location.lat, location.lon);
+
             // TODO: Make an API call to the server
             // const response = await axios.get("http://localhost:3000/api/", {
             //     params: { location, date }
             // });
-            setSearchResults(weather); // Store the search results
+            setSearchResults({ weatherResponse: weather, placesResponse: JSON.stringify(places)} ); // Store the search results
             setSearchError(""); // Clear any previous search errors
         } catch (error) {
             console.error(error);
@@ -146,10 +156,13 @@ const Home = () => {
             {searchError && <p className="text-red-500 mt-2">{searchError}</p>}
     
             {/* Display Search Results */}
-            {searchResults.length > 0 && (
+            {searchResults && (
                 <div className="mt-4 p-4 border rounded bg-gray-100">
                     <h2 className="text-lg font-bold">Search Results:</h2>
-                    <pre>{JSON.stringify(searchResults, null, 2)}</pre>
+                    <WeatherDisplay weather={searchResults.weatherResponse} />                    
+                    <h2>Places Result:</h2>
+                    {/* TODO: Parse results into something useable and display a card for each place */}
+                    <p>{searchResults.placesResponse}</p>
                 </div>
             )}
     
