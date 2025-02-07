@@ -1,22 +1,31 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect, useLayoutEffect } from "react";
-import React from "react";
-import auth from '../utils/auth';
+import auth from '../utils/auth.js';
 import { getCoordinates, getWeather } from "../api/weatherApi";
 //import axios from "axios"; // For the search API call
-import ErrorPage from "./ErrorPage";
 import '../index.css';
+import { saveFavorite } from '../api/appApi.js'
+import { UserData } from '../interfaces/UserData';
+import SearchBar from "../components/searchBar.js";
+import RecommendationCard from "../components/recommendationCard.js";
 
 const Home = () => {
 
     //States for user login
-    const [user, setUser] = useState('');
+    const [user, setUser] = useState<UserData>({
+        id: 0,
+        username: "",
+        email: "",
+    })
+
     const [loginCheck, setLoginCheck] = useState(false);
 
     // States for search bar
-    const [destination, setDestination] = useState("");
-    const [date, setDate] = useState("");
-    const [searchResults, setSearchResults] = useState(null);
-    const [searchError, setSearchError] = useState("");
+    const [destination, setDestination] = useState<string>("");
+    const [date, setDate] = useState<string>("");
+    console.log(typeof date);
+    const [searchResults, setSearchResults] = useState([]);
+    const [searchError, setSearchError] = useState<string>("");
 
     interface Recommendation {
         id: string;
@@ -69,7 +78,7 @@ const Home = () => {
     };
 
     const fetchUser = () => {
-        setUser(auth.getUsername());
+        setUser(auth.getProfile());
     }
 
 
@@ -85,105 +94,81 @@ const Home = () => {
 
         try {
             // Get latitude and longitude for the Location
-            const location = await getCoordinates(destination);            
+            const location = await getCoordinates(destination);
 
             // Call the Weather API with the given coordinates and date
             const weather = await getWeather(location.lat, location.lon, date);
-            
+
             // TODO: Make an API call to the server
             // const response = await axios.get("http://localhost:3000/api/", {
             //     params: { location, date }
             // });
             setSearchResults(weather); // Store the search results
-            // setSearchError(""); // Clear any previous search errors
+            setSearchError(""); // Clear any previous search errors
         } catch (error) {
             console.error(error);
             setSearchError("Error fetching data. Try again.");
         }
     };
 
-    if (searchError) {
-        return <ErrorPage />;
-    }
+    const saveItinerary = async () => {
+        try {
+            if (!user.id) {
+                console.error("User ID is null or undefined. Cannot save itinerary.");
+                return;
+            }
 
-    // Recommendation Card Component to display each recommendation
-    const RecommendationCard: React.FC<{ recommendation: Recommendation }> = ({ recommendation }) => (
-        <div className="recommendation-card">
-            <img src={recommendation.image} alt={recommendation.name} />
-            <h3>{recommendation.name}</h3>
-            <p>{recommendation.location}</p>
-            <p className="rating">⭐ {recommendation.rating}</p>
-            <p className="price">{recommendation.price}</p>
-        </div>
-    );
+            const itineraryDate = new Date(date); // Ensure date is a Date object
+
+            const response = await saveFavorite({
+                destination: destination,
+                date: itineraryDate,
+                weatherResponse: "weatherResponse",
+                placesResponse: "placesResponse"
+            }, user.id); // Now user.id is guaranteed to be a number
+
+            console.log(response);
+        } catch (error) {
+            console.error("Error saving itinerary:", error);
+        }
+    };
 
     return (
-        <>
-            {/* Search Bar Section */}
-            <div className="search-bar">
-                <input
-                    type="text"
-                    placeholder="Enter destination"
-                    value={destination}
-                    onChange={(e) => setDestination(e.target.value)}
-                />
-                <input
-                    type="date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                />
-                <button
-                    onClick={handleSearch}
-                >
-                    Search
-                </button>
-            </div>
-
+        <div>
+            <SearchBar
+                destination={destination}
+                setDestination={setDestination}
+                date={date}
+                setDate={setDate}
+                handleSearch={handleSearch}
+            />
             {/* Error Message for Search */}
             {searchError && <p className="text-red-500 mt-2">{searchError}</p>}
-
+    
             {/* Display Search Results */}
-            {searchResults && (
+            {searchResults.length > 0 && (
                 <div className="mt-4 p-4 border rounded bg-gray-100">
                     <h2 className="text-lg font-bold">Search Results:</h2>
                     <pre>{JSON.stringify(searchResults, null, 2)}</pre>
                 </div>
             )}
+    
             <div className="recommendation-container">
                 <h2>Top Hotels</h2>
                 <div className="recommendation-grid">
                     {hotels.map((hotel) => <RecommendationCard key={hotel.id} recommendation={hotel} />)}
                 </div>
             </div>
-
+    
             <div className="recommendation-container">
                 <h2>Top Restaurants</h2>
                 <div className="recommendation-grid">
                     {restaurants.map((restaurant) => <RecommendationCard key={restaurant.id} recommendation={restaurant} />)}
                 </div>
             </div>
-
+    
             <div className="recommendation-container">
                 <h2>Top Entertainment</h2>
                 <div className="recommendation-grid">
                     {entertainment.map((ent) => <RecommendationCard key={ent.id} recommendation={ent} />)}
                 </div>
-            </div>
-
-
-            {/* User List Section */}
-            {
-                !loginCheck ? (
-                    <div className='login-notice'>
-                        {/* <p>
-                            Login to save your favorite destinations!
-                        </p> */}
-                    </div>
-                ) : (
-                    <p>Welcome, {user}.</p>
-                )}
-        </>
-    );
-};
-
-export default Home;

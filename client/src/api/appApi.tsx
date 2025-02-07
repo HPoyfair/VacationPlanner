@@ -4,7 +4,7 @@ import Auth from '../utils/auth';
 // Store a favorite search for a user
 const saveFavorite = async (data: FavoriteSearch, userId: number) => {
     try {
-        const response = await fetch(`/api/${userId}/favorite`, {
+        const response = await fetch(`/api/user/${userId}/favorite`, { //added /users. Update on backend
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -19,7 +19,6 @@ const saveFavorite = async (data: FavoriteSearch, userId: number) => {
         }
     
         const responseData = await response.json();
-    
         return responseData;
     } catch (err) {
         console.log('Error from saveFavorite: ', err);

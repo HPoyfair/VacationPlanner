@@ -79,6 +79,20 @@
   padding: 10px;
 }
 
+.btn
+{
+    background-color: #FA7436;
+    border: none;
+    color: white;
+    padding: 8 px 28 px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
 
 .login-notice {
   color: rgb(93, 191, 14);
