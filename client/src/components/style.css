@@ -18,22 +18,17 @@
   nav ul li {
     margin-left: 20px;     /* Space between each nav item */
   }
-
-
+  
   .nav_link {
     text-decoration: none;
     color: rgb(18, 17, 17);          /* Adjust text color */
     font-size: 1rem;
-    font-family: Helvetica, sans-serif;      /* Adjust font size of nav items */
+    font-family: Helvetica, sans-serif      /* Adjust font size of nav items */
   }
   
-
-  .nav_link.active {
-    color:#FA7436;
-    font-weight: bold;
-    text-decoration-thickness: 2px;
+  .nav_link:hover {
+    text-decoration: underline; /* Optional: Add hover effect for the links */
   }
-
 
   .btn
     {

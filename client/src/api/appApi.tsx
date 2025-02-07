@@ -4,7 +4,7 @@ import Auth from '../utils/auth';
 // Store a favorite search for a user
 const saveFavorite = async (data: FavoriteSearch, userId: number) => {
     try {
-        const response = await fetch(`/api/${userId}/favorite`, {
+        const response = await fetch(`/api/user/${userId}/favorite`, { //added /users. Update on backend
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -19,7 +19,6 @@ const saveFavorite = async (data: FavoriteSearch, userId: number) => {
         }
     
         const responseData = await response.json();
-    
         return responseData;
     } catch (err) {
         console.log('Error from saveFavorite: ', err);
@@ -30,7 +29,7 @@ const saveFavorite = async (data: FavoriteSearch, userId: number) => {
 // Get all favorite searches for a user
 const getFavorites = async (userId: number) => {
     try {
-        const response = await fetch(`/api/${userId}/favorites`, {
+        const response = await fetch(`/api/user/${userId}/favorites`, {
             headers: {                
                 Authorization: `Bearer ${Auth.getToken()}`
             }
@@ -53,7 +52,7 @@ const getFavorites = async (userId: number) => {
 // Delete a favorite search for a user
 const deleteFavorite = async (userId: number, favoriteId: number) => {
     try {
-        const response = await fetch(`/api/${userId}/favorite/${favoriteId}`, {
+        const response = await fetch(`/api/user/${userId}/favorite/${favoriteId}`, {
             method: 'DELETE',
             headers: {                
                 Authorization: `Bearer ${Auth.getToken()}`
