@@ -5,6 +5,12 @@ import { getCoordinates, getWeather } from "../api/weatherApi";
 //import axios from "axios"; // For the search API call
 import ErrorPage from "./ErrorPage";
 import '../index.css';
+import WeatherResponse from "../interfaces/WeatherResponse";
+import WeatherDisplay from "../components/WeatherDisplay";
+
+interface SearchResults {
+    weatherResults: WeatherResponse;
+}
 
 const Home = () => {
 
@@ -15,9 +21,8 @@ const Home = () => {
     // States for search bar
     const [destination, setDestination] = useState("");
     const [date, setDate] = useState("");
-    const [searchResults, setSearchResults] = useState(null);
-    const [searchError, setSearchError] = useState("");
-
+    const [searchResults, setSearchResults] = useState<SearchResults | null>(null);
+    const [searchError, setSearchError] = useState("");    
     interface Recommendation {
         id: string;
         image: string;
@@ -94,7 +99,9 @@ const Home = () => {
             // const response = await axios.get("http://localhost:3000/api/", {
             //     params: { location, date }
             // });
-            setSearchResults(weather); // Store the search results
+            
+            setSearchResults({ weatherResults: weather });
+            
             // setSearchError(""); // Clear any previous search errors
         } catch (error) {
             console.error(error);
@@ -146,7 +153,7 @@ const Home = () => {
             {searchResults && (
                 <div className="mt-4 p-4 border rounded bg-gray-100">
                     <h2 className="text-lg font-bold">Search Results:</h2>
-                    <pre>{JSON.stringify(searchResults, null, 2)}</pre>
+                    <WeatherDisplay weather={searchResults.weatherResults} />                    
                 </div>
             )}
             <div className="recommendation-container">
