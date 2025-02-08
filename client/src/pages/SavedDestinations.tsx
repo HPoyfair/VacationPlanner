@@ -4,8 +4,10 @@ import '../index.css';
 
 
 export default function SavedDestination() {    
-    const [favorites, _setFavorites] = useState<FavoriteSearch[]>([]);
-    const handleRemove = () => { }
+    const [favorites, setFavorites] = useState<FavoriteSearch[]>([]);
+    const handleRemove = (indexToRemove: number) => {
+        setFavorites(favorites.filter((_, index) => index !== indexToRemove));
+    };
     
     useEffect(() => {
         const sampleFavoritesData = [
@@ -23,7 +25,7 @@ export default function SavedDestination() {
             }
         ]
 
-        _setFavorites(sampleFavoritesData);
+        setFavorites(sampleFavoritesData);
     }, []);
 
     return (
@@ -47,7 +49,11 @@ export default function SavedDestination() {
                                 <td>{favorite.weatherResponse || 'No weather data'}</td>
                                 <td>{favorite.placesResponse || 'No places data'}</td>
                                 <td>
-                                    <button className="btn-remove" type="button" onClick={handleRemove}>
+                                <button 
+                                        className="btn-remove" 
+                                        type="button" 
+                                        onClick={() => handleRemove(index)}
+                                    >
                                         Remove
                                     </button>
                                 </td>
