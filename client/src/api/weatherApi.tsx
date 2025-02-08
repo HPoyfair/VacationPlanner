@@ -1,15 +1,9 @@
-import Auth from '../utils/auth'
-
 // Get latitude and longitude for a given location
 const getCoordinates = async (location:string) => {
     const url = '/api/weather/location?q=' + location;
 
     try {
-        const response = await fetch(url, {
-            headers: {                
-                Authorization: `Bearer ${Auth.getToken()}`
-            }
-        });
+        const response = await fetch(url);
 
         if(!response.ok) {
             const errorData = await response.json();
@@ -30,11 +24,7 @@ const getWeather = async (lat:number, lon:number, date:string) => {
     const url = `/api/weather/?lat=${lat}&lon=${lon}&date=${date}`;
 
     try {
-        const response = await fetch(url, {            
-            headers: {                
-                Authorization: `Bearer ${Auth.getToken()}`
-            }            
-        });
+        const response = await fetch(url);
     
         if (!response.ok) {
             const errorData = await response.json();

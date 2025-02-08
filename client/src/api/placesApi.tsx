@@ -1,5 +1,3 @@
-import Auth from '../utils/auth'
-
 const getPlaces = async (lat:number, lon:number) => {
     // Call the places API with Hotel, Restaurant, and Tourist Attraction types
     const radius = 16100; // 16,100 meters = ~10 miles
@@ -7,11 +5,7 @@ const getPlaces = async (lat:number, lon:number) => {
 
     try {
         const places = await Promise.all(types.map(async (type) => {
-            const response = await fetch(`/api/places?lat=${lat}&lon=${lon}&type=${type}&radius=${radius}`, {
-                headers: {                
-                    Authorization: `Bearer ${Auth.getToken()}`
-                }
-            });
+            const response = await fetch(`/api/places?lat=${lat}&lon=${lon}&type=${type}&radius=${radius}`);
 
             if (!response.ok) {
                 const errorData = await response.json();
