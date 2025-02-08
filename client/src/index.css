@@ -35,7 +35,7 @@ html, body {
 /* Focused state for the input fields */
 .search-bar input[type="text"]:focus,
 .search-bar input[type="date"]:focus {
-  border-color: #4f86f1;
+  border-color: #eeeeef;
   outline: none;
 }
 
@@ -54,7 +54,7 @@ html, body {
 
 /* Hover effect for the search button */
 .search-bar button:hover {
-  background-color: #3773c1;
+  background-color: #bebebe;
 }
 
 /* Home.css */
@@ -100,11 +100,100 @@ html, body {
 }
 
 .login-notice {
-  color: rgb(93, 191, 14);
+  color: rgb(233, 46, 40);
   text-align: right;
   font-size: 10px;
 }
+/* 
+tr {
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+}
 
+tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+} */
+.table-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.favorites-table {
+  width: 80%;
+  border-collapse: collapse;
+  text-align: center;
+  background: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.favorites-table th, .favorites-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+}
+
+.favorites-table th {
+  background: #FA7436;
+  color: white;
+  font-weight: bold;
+}
+
+.favorites-table tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.favorites-table tr:hover {
+  background: #e9ecef;
+}
+.btn-remove {
+  background: #FA7436;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.recommendation-block{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.save-itinerary {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.btn-save {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  margin-top: 20px; /* Add spacing from previous elements */
+  background: #FA7436;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+.btn-remove:hover {
+  background: #c82333;
+}
+
+
+.no-data {
+  text-align: center;
+  font-style: italic;
+  color: #6c757d;
+}
 
 .error {
   color: red;
