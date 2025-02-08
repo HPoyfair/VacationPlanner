@@ -21,14 +21,32 @@
   
   .nav_link {
     text-decoration: none;
-    color: rgb(18, 17, 17);          /* Adjust text color */
-    font-size: 1rem;
-    font-family: Helvetica, sans-serif      /* Adjust font size of nav items */
+    color: rgb(0, 0, 0);
+    padding: 10px 15px;
+    position: relative;
+    transition: color 0.3s ease-in-out;
   }
   
-  .nav_link:hover {
-    text-decoration: underline; /* Optional: Add hover effect for the links */
+  /* Fix active tab color and underline */
+  .nav_link.active {
+    color: #FA7436;
+    font-weight: bold;
   }
+  
+  /* Add underline effect with space below text */
+  .nav_link.active::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -1px; /* Increase distance of line from text */
+    transform: translateX(-50%);
+    width: 80%;
+    height: 2px;
+    background-color: #FA7436;
+    border-radius: 2px;
+  }
+  
+
 
   .btn
     {
