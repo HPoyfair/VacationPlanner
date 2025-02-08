@@ -175,7 +175,8 @@ const Home = () => {
                     {/* <img src={searchResults.placesResponse} alt="Place Image" />                     */}
                 </div>
             )}
-    
+            <div className="recommendation-block">
+                
             <div className="recommendation-container">
                 <h2>Top Hotels</h2>
                 <div className="recommendation-grid">
@@ -196,9 +197,10 @@ const Home = () => {
                     {entertainment.map((ent) => <RecommendationCard key={ent.id} recommendation={ent} />)}
                 </div>
             </div>
+            </div>
     
-            <div>
-                <button onClick={saveItinerary}>Save Itinerary</button>
+            <div className="save-itinerary">
+                <button className="btn" type='button' onClick={saveItinerary}>Save Itinerary</button>
             </div>
         </div>
     );

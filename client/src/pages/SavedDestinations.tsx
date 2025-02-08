@@ -1,5 +1,6 @@
 import { FavoriteSearch } from '../interfaces/FavoriteSearch';
 import { useState, useEffect } from 'react';
+import '../index.css';
 
 
 export default function SavedDestination() {    
@@ -26,20 +27,39 @@ export default function SavedDestination() {
     }, []);
 
     return (
-        <table>
-            <tbody>
-                {favorites.map((favorite, index) => (
-                    <tr key={index}>
-                        <td>{favorite.destination}</td>
-                        <td>{new Date(favorite.date).toLocaleDateString()}</td>
-                        <td>{favorite.weatherResponse || 'No weather data'}</td>
-                        <td>{favorite.placesResponse || 'No places data'}</td>
-                        <td>
-                            <button onClick={handleRemove}>Remove</button>
-                        </td>
+        <div className="table-container">
+            <table className="favorites-table">
+                <thead>
+                    <tr>
+                        <th>Destination</th>
+                        <th>Date</th>
+                        <th>Weather</th>
+                        <th>Places to Visit</th>
+                        <th>Action</th>
                     </tr>
-                ))}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {favorites.length > 0 ? (
+                        favorites.map((favorite, index) => (
+                            <tr key={index}>
+                                <td>{favorite.destination}</td>
+                                <td>{new Date(favorite.date).toLocaleDateString()}</td>
+                                <td>{favorite.weatherResponse || 'No weather data'}</td>
+                                <td>{favorite.placesResponse || 'No places data'}</td>
+                                <td>
+                                    <button className="btn-remove" type="button" onClick={handleRemove}>
+                                        Remove
+                                    </button>
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan={5} className="no-data">No saved destinations</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        </div>
     );
 }
