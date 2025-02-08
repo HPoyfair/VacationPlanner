@@ -1,10 +1,15 @@
 import WeatherResponse from "../interfaces/WeatherResponse";
+import '../components/weather.css';
 
 interface WeatherProps {
     weather: WeatherResponse;
 }
 
 const WeatherDisplay = ({ weather }:WeatherProps) => {
+    const formatDate = (dateString: string): string => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    };
     const convertAngleToDirection = (angle: number):string => {
         // Convert the angle to a compass direction
         if (angle >= 348.75 || angle < 11.25) {
@@ -57,7 +62,7 @@ const WeatherDisplay = ({ weather }:WeatherProps) => {
 
     return (
         <div className="weatherCard">
-            <h2>Weather for {weather.date}</h2>
+            <h2>Weather for {formatDate(weather.date)}</h2>
             <p>Temperature: {Math.floor(weather.temperature.min)} - {Math.floor(weather.temperature.max)}°F</p>
             <p>Wind: {convertAngleToDirection(weather.wind.max.direction)} at {Math.floor(weather.wind.max.speed)} MPH</p>
             <p>Cloud Cover: {convertCloudCoverToString(weather.cloud_cover.afternoon)}</p>

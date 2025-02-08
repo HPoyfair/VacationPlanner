@@ -167,9 +167,9 @@ const Home = () => {
             {/* Display Search Results */}
             {searchResults && (
                 <div className="mt-4 p-4 border rounded bg-gray-100">
-                    <h2 className="text-lg font-bold">Search Results:</h2>
+                    {/* <h2 className="text-lg font-bold">Search Results:</h2> */}
                     <WeatherDisplay weather={searchResults.weatherResponse} />                    
-                    <h2>Places Result:</h2>
+                    {/* <h2>Places Result:</h2> */}
                     {/* TODO: Parse results into something useable and display a card for each place */}
                     <p>{JSON.stringify(searchResults.placesResponse)}</p>
                     {/* <img src={searchResults.placesResponse} alt="Place Image" />                     */}
