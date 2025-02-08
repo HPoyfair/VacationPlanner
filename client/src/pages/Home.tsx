@@ -3,6 +3,8 @@ import { useState, useEffect, useLayoutEffect } from "react";
 import auth from '../utils/auth.js';
 import { getCoordinates, getWeather } from "../api/weatherApi";
 import { getPlaces } from "../api/placesApi";
+import { parsePlacesResponse } from "../utils/parsePlaces.js";
+import { PlaceData } from "../interfaces/PlaceData";
 //import axios from "axios"; // For the search API call
 import '../index.css';
 import { saveFavorite } from '../api/appApi.js'
@@ -14,7 +16,7 @@ import WeatherResponse from "../interfaces/WeatherResponse.js";
 
 interface SearchResults {
     weatherResponse: WeatherResponse;
-    placesResponse: string;
+    placesResponse: PlaceData[];
 }
 
 const Home = () => {
@@ -109,11 +111,18 @@ const Home = () => {
 
             const places = await getPlaces(location.lat, location.lon);
 
+            const parsedPlaces = await parsePlacesResponse(places);
+            
+            if (!parsedPlaces) {
+                setSearchError("Error fetching places data. Try again.");
+                return;
+            }
+
             // TODO: Make an API call to the server
             // const response = await axios.get("http://localhost:3000/api/", {
             //     params: { location, date }
             // });
-            setSearchResults({ weatherResponse: weather, placesResponse: JSON.stringify(places)} ); // Store the search results
+            setSearchResults({ weatherResponse: weather, placesResponse: parsedPlaces} ); // Store the search results
             setSearchError(""); // Clear any previous search errors
         } catch (error) {
             console.error(error);
@@ -162,7 +171,8 @@ const Home = () => {
                     <WeatherDisplay weather={searchResults.weatherResponse} />                    
                     <h2>Places Result:</h2>
                     {/* TODO: Parse results into something useable and display a card for each place */}
-                    <p>{searchResults.placesResponse}</p>
+                    <p>{JSON.stringify(searchResults.placesResponse)}</p>
+                    {/* <img src={searchResults.placesResponse} alt="Place Image" />                     */}
                 </div>
             )}
     
