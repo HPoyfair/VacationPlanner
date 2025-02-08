@@ -1,0 +1,51 @@
+.weatherCard {
+    background: linear-gradient(135deg, #64f1f6, #f89868);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 450px;
+    margin: auto;
+    font-family: 'Arial', sans-serif;
+}
+
+.weatherCard h2 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.weatherCard p {
+    font-size: 1.2rem;
+    margin: 5px 0;
+}
+
+.weather-temp {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.weather-wind, .weather-humidity, .weather-cloud {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.weatherCard p span {
+    font-weight: bold;
+}
+
+@media (max-width: 500px) {
+    .weatherCard {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .weatherCard h2 {
+        font-size: 1.5rem;
+    }
+
+    .weatherCard p {
+        font-size: 1rem;
+    }
+}
