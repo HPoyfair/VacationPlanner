@@ -10,9 +10,10 @@ import { saveFavorite } from "../api/appApi.js";
 import { UserData } from "../interfaces/UserData";
 import WeatherDisplay from "../components/WeatherDisplay.js";
 import SearchBar from "../components/searchBar.js";
+import WeatherResponse from "../interfaces/WeatherResponse.js";
 
 interface SearchResults {
-  weatherResponse: any;
+  weatherResponse: WeatherResponse;
   placesResponse: PlaceData[];
 }
 
