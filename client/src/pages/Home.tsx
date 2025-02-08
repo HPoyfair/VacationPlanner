@@ -169,61 +169,60 @@ const Home = () => {
       {searchError && <p className="text-red-500 mt-2">{searchError}</p>}
 
       {searchResults && (
+        <div> 
         <div className="mt-4 p-4 border rounded bg-gray-100">
-          <h2 className="text-lg font-bold">Search Results:</h2>
+           
+           
+          
           <WeatherDisplay weather={searchResults.weatherResponse} />
         </div>
-      )}
-
-      <div className="results-container">
-        <div className="results-box">
-          <h3>Top Hotels</h3>
-          {hotels.map((hotel) => (
-            <div className="result-card" key={hotel.id}>
-              <img src={hotel.image} alt={hotel.name} />
-              <p>
-                <strong>{hotel.name}</strong>
-              </p>
-              <p>{hotel.location}</p>
-              <p className="card-price">{hotel.price}</p>
+        <div className="recommendations-section">
+        <h2 className="text-center text-xl font-bold mb-4">Local Recommendations</h2>
+        <div className="results-container">
+            <div className="results-box">
+                {hotels.map((hotel) => (
+                    <div className="result-card" key={hotel.id}>
+                        <img src={hotel.image} alt={hotel.name} />
+                        <p><strong>{hotel.name}</strong></p>
+                        <p>{hotel.location}</p>
+                        <p className="card-price">{hotel.price}</p>
+                    </div>
+                ))}
             </div>
-          ))}
-        </div>
 
-        <div className="results-box">
-          <h3>Top Restaurants</h3>
-          {restaurants.map((restaurant) => (
-            <div className="result-card" key={restaurant.id}>
-              <img src={restaurant.image} alt={restaurant.name} />
-              <p>
-                <strong>{restaurant.name}</strong>
-              </p>
-              <p>{restaurant.location}</p>
-              <p className="card-price">{restaurant.price}</p>
+            <div className="results-box">
+                {restaurants.map((restaurant) => (
+                    <div className="result-card" key={restaurant.id}>
+                        <img src={restaurant.image} alt={restaurant.name} />
+                        <p><strong>{restaurant.name}</strong></p>
+                        <p>{restaurant.location}</p>
+                        <p className="card-price">{restaurant.price}</p>
+                    </div>
+                ))}
             </div>
-          ))}
-        </div>
 
-        <div className="results-box">
-          <h3>Top Entertainment</h3>
-          {entertainment.map((ent) => (
-            <div className="result-card" key={ent.id}>
-              <img src={ent.image} alt={ent.name} />
-              <p>
-                <strong>{ent.name}</strong>
-              </p>
-              <p>{ent.location}</p>
-              <p className="card-price">{ent.price}</p>
+            <div className="results-box">
+                {entertainment.map((ent) => (
+                    <div className="result-card" key={ent.id}>
+                        <img src={ent.image} alt={ent.name} />
+                        <p><strong>{ent.name}</strong></p>
+                        <p>{ent.location}</p>
+                        <p className="card-price">{ent.price}</p>
+                    </div>
+                ))}
             </div>
-          ))}
         </div>
-      </div>
+    </div>
 
       <div className="save-itinerary">
         <button className="btn" type="button" onClick={saveItinerary}>
           Save Itinerary
         </button>
       </div>
+        </div>
+      )}
+
+
     </div>
   );
 };
