@@ -22,4 +22,22 @@ const getPlaces = async (lat:number, lon:number) => {
     }
 }
 
-export { getPlaces };
+const getPhoto = async (photoReference:string, maxWidth:number) => {
+    try {
+        const response = await fetch(`/api/places/photo?photoReference=${photoReference}&maxWidth=${maxWidth}`);
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`${errorData.message}`);
+        }
+
+        const result = await response.json();
+
+        return result.url;
+    } catch (err) {
+        console.log('Error from getPhoto: ', err);
+        return Promise.reject(err);
+    }
+}
+
+export { getPlaces, getPhoto };
