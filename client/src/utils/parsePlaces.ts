@@ -33,8 +33,10 @@ const parsePlacesResponse = async (response: Array<PlacesResult>) => {
     for (let i = 0; i < 3; i++) {
         const record = response[i];        
 
-        let filteredResults = record.results.filter((result) => {
-            return result.photos && result.photos.length > 0 && result.rating && result.user_ratings_total >= 10;
+        let filteredResults = record.results.filter((res) => {
+            // Filter out results that do not have a photo, rating, or less than 10 user ratings
+            // Also exclude locations already selected for another category
+            return res.photos && res.photos.length > 0 && res.rating && res.user_ratings_total >= 10 && result.findIndex((r) => r.name === res.name) === -1;
         });
 
         if (filteredResults.length === 0) {

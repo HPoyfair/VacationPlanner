@@ -178,14 +178,18 @@ const Home = () => {
       }
   
       const itineraryDate = new Date(date);
+
+      // Get the search from local storage
+      const storedData = getStored();
   
       const response = await saveFavorite(
         {
           destination: destination,
           date: itineraryDate,
-          weatherResponse: "weatherResponse",
-          placesResponse: "placesResponse",
-        }        
+          weatherResponse: JSON.stringify(storedData.weather),
+          placesResponse: JSON.stringify(storedData.places)
+        },
+        user.id
       );
   
       console.log(response);
