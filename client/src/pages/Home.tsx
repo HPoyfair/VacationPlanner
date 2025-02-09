@@ -114,6 +114,7 @@ const Home = () => {
 
   const fetchUser = () => {
     setUser(auth.getProfile());
+    console.log('UserData: ' + JSON.stringify(auth.getProfile()));
   };
 
   const handleSearch = async () => {
@@ -184,8 +185,7 @@ const Home = () => {
           date: itineraryDate,
           weatherResponse: "weatherResponse",
           placesResponse: "placesResponse",
-        },
-        user.id
+        }        
       );
   
       console.log(response);
