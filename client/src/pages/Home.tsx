@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect, useLayoutEffect } from "react";
 import auth from "../utils/auth.js";
 import { getCoordinates, getWeather } from "../api/weatherApi";
@@ -46,6 +45,8 @@ const Home = () => {
   const [hotels, setHotels] = useState<Recommendation[]>([]);
   const [restaurants, setRestaurants] = useState<Recommendation[]>([]);
   const [entertainment, setEntertainment] = useState<Recommendation[]>([]);
+
+  const [itinerarySaved, setItinerarySaved] = useState(false);
 
   useEffect(() => {
     console.log("User:", user);
@@ -174,12 +175,11 @@ const Home = () => {
         console.error("User ID is null or undefined. Cannot save itinerary.");
         return;
       }
-
+  
       const itineraryDate = new Date(date);
-
+  
       const response = await saveFavorite(
         {
-    
           destination: destination,
           date: itineraryDate,
           weatherResponse: "weatherResponse",
@@ -187,8 +187,18 @@ const Home = () => {
         },
         user.id
       );
-
+  
       console.log(response);
+      console.log("Saving itinerary...");
+  
+      setItinerarySaved(true);
+  
+      // Hide the saved message after 3 seconds
+      setTimeout(() => {
+        setItinerarySaved(true); 
+      }, 300);
+  
+      console.log("Itinerary saved!");
     } catch (error) {
       console.error("Error saving itinerary:", error);
     }
@@ -225,9 +235,9 @@ const Home = () => {
                         <p className="card-rating">{ratingString(hotel.rating)} {hotel.reviews} reviews</p>
                     </div>
                 ))}
-            </div>
+              </div>
 
-            <div className="results-box">
+              <div className="results-box">
                 {restaurants.map((restaurant) => (
                     <div className="result-card" key={restaurant.id}>
                         <img src={restaurant.image} alt={restaurant.name} />
@@ -236,31 +246,42 @@ const Home = () => {
                         <p className="card-rating">{ratingString(restaurant.rating)} {restaurant.reviews} reviews</p>
                     </div>
                 ))}
-            </div>
+              </div>
 
-            <div className="results-box">
+              <div className="results-box">
                 {entertainment.map((ent) => (
-                    <div className="result-card" key={ent.id}>
-                        <img src={ent.image} alt={ent.name} />
-                        <p><strong>{ent.name}</strong></p>
-                        <p>{ent.location}</p>
-                        <p className="card-rating">{ratingString(ent.rating)} {ent.reviews} reviews</p>
-                    </div>
+                  <div className="result-card" key={ent.id}>
+                    <img src={ent.image} alt={ent.name} />
+                    <p><strong>{ent.name}</strong></p>
+                    <p>{ent.location}</p>
+                    <p className="card-rating">{ratingString(ent.rating)} {ent.reviews} reviews</p>
+                  </div>
                 ))}
+              </div>
             </div>
-        </div>
-    </div>
+          </div>
 
       
-        <div className="save-itinerary">
-        {
+            <div className="save-itinerary">
+            {
           loginCheck ? (
-            <button className="btn" type="button" onClick={saveItinerary}>
-              Save Itinerary
-            </button>) :
+            <button
+              className="btn"
+              type="button"
+              onClick={() => {
+                saveItinerary(); // Call your save function here
+                setItinerarySaved(true); // Update state to display the success message
+              }}
+            >
+                  Save Itinerary
+                </button>) :
             <Link to="/login"><p className="login-link">Login to save this result!</p></Link>
         }
-        </div>
+
+            {itinerarySaved && (
+              <p className="save-message">Your itinerary has been saved!</p>
+            )}
+            </div>
       
         </div>
     )}
