@@ -114,6 +114,7 @@ const Home = () => {
 
   const fetchUser = () => {
     setUser(auth.getProfile());
+    console.log('UserData: ' + JSON.stringify(auth.getProfile()));
   };
 
   const handleSearch = async () => {

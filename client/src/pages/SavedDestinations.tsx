@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import '../index.css';
 import { getFavorites } from '../api/appApi';
-import auth from '../utils/auth';
 import { deleteFavorite } from '../api/appApi';
 import { SavedFavoriteSearch } from '../interfaces/FavoriteSearch';
 import { Link } from 'react-router-dom';
@@ -10,45 +9,30 @@ import { Link } from 'react-router-dom';
 
 export default function SavedDestinations() {
     const [favorites, setFavorites] = useState<SavedFavoriteSearch[]>([]);
-    const handleRemove = (favoriteIdToRemove: number) => {
-        const profile = auth.getProfile();
-        if (profile && typeof profile.id === "number") {
-            const userId = profile.id; // Base 10 to ensure proper parsing
-            console.log('userId:', userId);
-            if (!isNaN(userId)) {
-                deleteFavorite(userId, favoriteIdToRemove)
-                    .then(() => {
-                        getFavorites(userId)
-                            .then((favorites) => {
-                                setFavorites(favorites);
-                            })
-                            .catch((err) => {
-                                console.error("Error getting favorites:", err);
-                            });
-                    })
-                    .catch((err) => {
-                        console.error("Error deleting favorite:", err);
-                    });
-            }
-        }
-    };
-
-    useEffect(() => {
-        const profile = auth.getProfile();
-        console.log('Profile:', profile);
-        if (profile && typeof profile.id === "number") {
-            const userId = profile.id; // Base 10 to ensure proper parsing
-            console.log('userId:', userId);
-            if (!isNaN(userId)) {
-                getFavorites(userId)
+    const handleRemove = (favoriteIdToRemove: number) => {        
+        deleteFavorite(favoriteIdToRemove)
+            .then(() => {
+                getFavorites()
                     .then((favorites) => {
                         setFavorites(favorites);
                     })
                     .catch((err) => {
                         console.error("Error getting favorites:", err);
                     });
-            }
-        }
+            })
+            .catch((err) => {
+                console.error("Error deleting favorite:", err);
+            });
+    };
+
+    useEffect(() => {
+        getFavorites()
+        .then((favorites) => {
+            setFavorites(favorites);
+        })
+        .catch((err) => {
+            console.error("Error getting favorites:", err);
+        });
     }, []);
 
     useEffect(() => {
