@@ -1,6 +1,9 @@
-html, body {
-  background-color: #f8f7f5; /* Change to your desired color */
-  color: #333; /* Default text color */
+html,
+body {
+  background-color: #f8f7f5;
+  /* Change to your desired color */
+  color: #333;
+  /* Default text color */
   margin: 0;
   padding: 0;
   height: 100%;
@@ -20,7 +23,7 @@ html, body {
 }
 
 /* Input fields styling */
-.search-bar input[type="text"], 
+.search-bar input[type="text"],
 .search-bar input[type="date"] {
   width: 100%;
   max-width: 220px;
@@ -85,18 +88,17 @@ html, body {
   padding: 10px;
 }
 
-.btn
-{
-    background-color: #FA7436;
-    border: none;
-    color: white;
-    padding: 8 px 28 px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 4px 2px;
-    cursor: pointer;
+.btn {
+  background-color: #FA7436;
+  border: none;
+  color: white;
+  padding: 8 px 28 px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 
 .login-notice {
@@ -104,6 +106,7 @@ html, body {
   text-align: right;
   font-size: 10px;
 }
+
 /* 
 tr {
   border-radius: 10px;
@@ -131,7 +134,8 @@ tbody tr:nth-child(odd) {
   overflow: hidden;
 }
 
-.favorites-table th, .favorites-table td {
+.favorites-table th,
+.favorites-table td {
   padding: 12px;
   border: 1px solid #ddd;
 }
@@ -149,6 +153,7 @@ tbody tr:nth-child(odd) {
 .favorites-table tr:hover {
   background: #e9ecef;
 }
+
 .btn-remove {
   background: #FA7436;
   color: white;
@@ -173,7 +178,7 @@ tbody tr:nth-child(odd) {
   margin-inline: 10px;
 }
 
-.recommendation-block{
+.recommendation-block {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -228,4 +233,8 @@ h2 {
 
 .error {
   color: red;
+}
+
+.login-link {
+  color: orangered;
 }
