@@ -11,10 +11,11 @@ import { UserData } from "../interfaces/UserData";
 import WeatherDisplay from "../components/WeatherDisplay.js";
 import SearchBar from "../components/searchBar.js";
 import WeatherResponse from "../interfaces/WeatherResponse.js";
+import { Link } from "react-router-dom";
+import { store, getStored, clearStore } from "../utils/localStore.js";
 
 interface SearchResults {
-  weatherResponse: WeatherResponse;
-  placesResponse: PlaceData[];
+  weatherResponse: WeatherResponse;  
 }
 
 interface Recommendation {
@@ -37,7 +38,7 @@ const Home = () => {
 
   const [destination, setDestination] = useState<string>("");
   const [date, setDate] = useState<string>("");
-  const [searchResults, setSearchResults] = useState<SearchResults | null>(
+  const [weatherResults, setWeatherResults] = useState<SearchResults | null>(
     null
   );
   const [searchError, setSearchError] = useState<string>("");
@@ -58,40 +59,18 @@ const Home = () => {
 
   useLayoutEffect(() => {
     checkLogin();
+
+    const storedData = getStored();
+
+    if (storedData && storedData.places && storedData.weather) {
+      setDestination(storedData.search || "");
+      setDate(storedData.date.toISOString());
+      populatePlaces(JSON.parse(storedData.places));
+      setWeatherResults({weatherResponse: JSON.parse(storedData.weather)});
+    }
   }, []);
 
-  const checkLogin = () => {
-    if (auth.loggedIn()) {
-      setLoginCheck(true);
-    }
-  };
-
-  const fetchUser = () => {
-    setUser(auth.getProfile());
-  };
-
-  const handleSearch = async () => {
-    setHotels([]);
-    setRestaurants([]);
-    setEntertainment([]);
-
-    if (!destination || !date) {
-      alert("Please enter both location and date.");
-      return;
-    }
-
-    try {
-      const location = await getCoordinates(destination);
-      const weather = await getWeather(location.lat, location.lon, date);
-      const places = await getPlaces(location.lat, location.lon);
-
-      const parsedPlaces = await parsePlacesResponse(places);
-
-      if (!parsedPlaces) {
-        setSearchError("Error fetching places data. Try again.");
-        return;
-      }
-
+  const populatePlaces = async (parsedPlaces:PlaceData[]) => {
       setHotels([
         {
           id: "1",
@@ -124,12 +103,54 @@ const Home = () => {
           reviews: parsedPlaces[2].userRatings
         },
       ]);
+  }
 
-      setSearchResults({
-        weatherResponse: weather,
-        placesResponse: parsedPlaces,
+  const checkLogin = () => {
+    if (auth.loggedIn()) {
+      setLoginCheck(true);
+    }
+  };
+
+  const fetchUser = () => {
+    setUser(auth.getProfile());
+  };
+
+  const handleSearch = async () => {
+    clearStore();
+    setHotels([]);
+    setRestaurants([]);
+    setEntertainment([]);
+
+    if (!destination || !date) {
+      alert("Please enter both location and date.");
+      return;
+    }
+
+    try {
+      const location = await getCoordinates(destination);
+      const weather = await getWeather(location.lat, location.lon, date);
+      const places = await getPlaces(location.lat, location.lon);
+
+      const parsedPlaces = await parsePlacesResponse(places);
+
+      if (!parsedPlaces) {
+        setSearchError("Error fetching places data. Try again.");
+        return;
+      }
+
+      populatePlaces(parsedPlaces);
+
+      if (!parsedPlaces) {
+        setSearchError("Error fetching places data. Try again.");
+        return;
+      }
+
+      setWeatherResults({
+        weatherResponse: weather        
       });
       setSearchError("");
+
+      store(destination, new Date(date), JSON.stringify(weather), JSON.stringify(parsedPlaces));
     } catch (error) {
       console.error("Error fetching data:", error);
       setSearchError("Error fetching data. Try again.");
@@ -184,13 +205,13 @@ const Home = () => {
       />
       {searchError && <p className="text-red-500 mt-2">{searchError}</p>}
 
-      {searchResults && (
+      {weatherResults && (
         <div> 
         <div className="mt-4 p-4 border rounded bg-gray-100">
            
            
           
-          <WeatherDisplay weather={searchResults.weatherResponse} />
+          <WeatherDisplay weather={weatherResults.weatherResponse} />
         </div>
         <div className="recommendations-section">
         <h2 className="text-center text-xl font-bold mb-4">Local Recommendations</h2>
@@ -230,13 +251,19 @@ const Home = () => {
         </div>
     </div>
 
-      <div className="save-itinerary">
-        <button className="btn" type="button" onClick={saveItinerary}>
-          Save Itinerary
-        </button>
-      </div>
+      
+        <div className="save-itinerary">
+        {
+          loginCheck ? (
+            <button className="btn" type="button" onClick={saveItinerary}>
+              Save Itinerary
+            </button>) :
+            <Link to="/login"><p className="login-link">Login to save this result!</p></Link>
+        }
         </div>
-      )}
+      
+        </div>
+    )}
 
 
     </div>
