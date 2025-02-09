@@ -47,6 +47,10 @@ const Home = () => {
   const [entertainment, setEntertainment] = useState<Recommendation[]>([]);
 
   useEffect(() => {
+    console.log("User:", user);
+  }, [user]);
+
+  useEffect(() => {
     if (loginCheck) {
       fetchUser();
     }
@@ -143,6 +147,7 @@ const Home = () => {
 
       const response = await saveFavorite(
         {
+    
           destination: destination,
           date: itineraryDate,
           weatherResponse: "weatherResponse",

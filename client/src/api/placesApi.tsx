@@ -14,7 +14,7 @@ const getPlaces = async (lat:number, lon:number) => {
 
             return response.json();
         }));
-
+        console.log('places: ', places);
         return places;
     } catch (err) {
         console.log('Error from getPlaces: ', err);

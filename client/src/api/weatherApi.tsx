@@ -25,10 +25,11 @@ const getWeather = async (lat:number, lon:number, date:string) => {
 
     try {
         const response = await fetch(url);
-    
+        console.log('response:', response);
+
+
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(`${errorData.message}`);
+            throw new Error('Error fetching weather data');
         }
     
         const responseData = await response.json();

@@ -156,6 +156,20 @@ tbody tr:nth-child(odd) {
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s;
+  min-width: 90px;
+  margin-inline: 10px;
+}
+
+.btn-view {
+  background: #41e1ed;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  min-width: 90px;
+  margin-inline: 10px;
 }
 
 .recommendation-block{
