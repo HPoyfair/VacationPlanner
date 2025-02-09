@@ -60,7 +60,7 @@ router.delete('/:id/favorite/:favoriteId', async (req: Request, res: Response) =
 
             if (favorite && favorite.userId === user.id) {
                 await favorite.destroy();
-                res.status(200);
+                res.status(200).json({ message: 'Record deleted' });
                 return;
             }
         }

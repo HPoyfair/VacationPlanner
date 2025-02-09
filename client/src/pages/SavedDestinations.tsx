@@ -1,32 +1,75 @@
 import { FavoriteSearch } from '../interfaces/FavoriteSearch';
 import { useState, useEffect } from 'react';
 import '../index.css';
+import { getFavorites } from '../api/appApi';
+import auth from '../utils/auth';
+import { deleteFavorite } from '../api/appApi';
 
 
 export default function SavedDestination() {    
     const [favorites, setFavorites] = useState<FavoriteSearch[]>([]);
-    const handleRemove = (indexToRemove: number) => {
-        setFavorites(favorites.filter((_, index) => index !== indexToRemove));
-    };
+    const handleRemove = (favoriteIdToRemove: number) => {
+        const profile = auth.getProfile();
+        if (profile && typeof profile.id === "number") {
+            const userId = profile.id; // Base 10 to ensure proper parsing
+            console.log('userId:', userId);
+            if (!isNaN(userId)) {
+                deleteFavorite(userId, favoriteIdToRemove)
+                    .then(() => {
+                    getFavorites(userId)
+                        .then((favorites) => {
+                            setFavorites(favorites);
+                        })
+                        .catch((err) => {
+                            console.error("Error getting favorites:", err);
+                        });
+                    })
+                    .catch((err) => {
+                        console.error("Error deleting favorite:", err);
+                    });
+            }
+    }};
     
     useEffect(() => {
-        const sampleFavoritesData = [
-            {
-                destination: 'Paris',
-                date: new Date('2022-01-01'),
-                weatherResponse: 'Sunny',
-                placesResponse: 'Eiffel Tower, Louvre'
-            },
-            {
-                destination: 'New York',
-                date: new Date('2022-02-01'),
-                weatherResponse: 'Rainy',
-                placesResponse: 'Statue of Liberty, Central Park'
+        const profile = auth.getProfile();
+        console.log('Profile:', profile);
+        if (profile && typeof profile.id === "number") {
+            const userId = profile.id; // Base 10 to ensure proper parsing
+            console.log('userId:', userId);
+            if (!isNaN(userId)) {
+                getFavorites(userId)
+                    .then((favorites) => {
+                        setFavorites(favorites);
+                    })
+                    .catch((err) => {
+                        console.error("Error getting favorites:", err);
+                    });
             }
-        ]
-
-        setFavorites(sampleFavoritesData);
+        }
     }, []);
+
+    useEffect(() => {
+        console.log('Favorites:', favorites);
+    }, [favorites]);
+
+    // useEffect(() => {
+    //     const sampleFavoritesData = [
+    //         {
+    //             destination: 'Paris',
+    //             date: new Date('2022-01-01'),
+    //             weatherResponse: 'Sunny',
+    //             placesResponse: 'Eiffel Tower, Louvre'
+    //         },
+    //         {
+    //             destination: 'New York',
+    //             date: new Date('2022-02-01'),
+    //             weatherResponse: 'Rainy',
+    //             placesResponse: 'Statue of Liberty, Central Park'
+    //         }
+    //     ]
+
+    //     setFavorites(sampleFavoritesData);
+    // }, []);
 
     return (
         <div className="table-container">
