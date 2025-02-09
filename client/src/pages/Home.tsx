@@ -189,7 +189,6 @@ const Home = () => {
           weatherResponse: JSON.stringify(storedData.weather),
           placesResponse: JSON.stringify(storedData.places)
         },
-        user.id
       );
   
       console.log(response);
