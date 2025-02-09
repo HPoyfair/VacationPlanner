@@ -23,7 +23,7 @@ interface Recommendation {
   name: string;
   rating: number;
   location: string;
-  price: string;
+  reviews: number;
 }
 
 const Home = () => {
@@ -97,9 +97,9 @@ const Home = () => {
           id: "1",
           image: parsedPlaces[0].photoUrl,
           name: parsedPlaces[0].name,
-          rating: 5,
+          rating: parsedPlaces[0].rating,
           location: parsedPlaces[0].address,
-          price: "$$$",
+          reviews: parsedPlaces[0].userRatings
         },
       ]);
 
@@ -108,9 +108,9 @@ const Home = () => {
           id: "2",
           image: parsedPlaces[1].photoUrl,
           name: parsedPlaces[1].name,
-          rating: 4.5,
+          rating: parsedPlaces[1].rating,
           location: parsedPlaces[1].address,
-          price: "$$",
+          reviews: parsedPlaces[1].userRatings
         },
       ]);
 
@@ -119,9 +119,9 @@ const Home = () => {
           id: "3",
           image: parsedPlaces[2].photoUrl,
           name: parsedPlaces[2].name,
-          rating: 4,
+          rating: parsedPlaces[2].rating,
           location: parsedPlaces[2].address,
-          price: "$",
+          reviews: parsedPlaces[2].userRatings
         },
       ]);
 
@@ -135,6 +135,17 @@ const Home = () => {
       setSearchError("Error fetching data. Try again.");
     }
   };
+
+  const ratingString = (rating: number) => {
+    let ratingString = "";
+    const flatRating = Math.floor(rating);
+    
+    for (let i = 0; i < flatRating; i++) {
+      ratingString += "⭐";
+    }    
+
+    return ratingString;
+  }
 
   const saveItinerary = async () => {
     try {
@@ -190,7 +201,7 @@ const Home = () => {
                         <img src={hotel.image} alt={hotel.name} />
                         <p><strong>{hotel.name}</strong></p>
                         <p>{hotel.location}</p>
-                        <p className="card-price">{hotel.price}</p>
+                        <p className="card-rating">{ratingString(hotel.rating)} {hotel.reviews} reviews</p>
                     </div>
                 ))}
             </div>
@@ -201,7 +212,7 @@ const Home = () => {
                         <img src={restaurant.image} alt={restaurant.name} />
                         <p><strong>{restaurant.name}</strong></p>
                         <p>{restaurant.location}</p>
-                        <p className="card-price">{restaurant.price}</p>
+                        <p className="card-rating">{ratingString(restaurant.rating)} {restaurant.reviews} reviews</p>
                     </div>
                 ))}
             </div>
@@ -212,7 +223,7 @@ const Home = () => {
                         <img src={ent.image} alt={ent.name} />
                         <p><strong>{ent.name}</strong></p>
                         <p>{ent.location}</p>
-                        <p className="card-price">{ent.price}</p>
+                        <p className="card-rating">{ratingString(ent.rating)} {ent.reviews} reviews</p>
                     </div>
                 ))}
             </div>

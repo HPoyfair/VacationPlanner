@@ -3,4 +3,6 @@ export interface PlaceData {
     name: string;
     photoUrl: string;
     address: string;
+    rating: number;
+    userRatings: number;
 }
