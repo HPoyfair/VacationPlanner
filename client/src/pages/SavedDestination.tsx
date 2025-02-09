@@ -48,7 +48,7 @@ const SavedDestination = () => {
                 .then((favorite) => {
                     console.log(favorite);
                     setDestination(favorite.destination);
-                    setDate(favorite.date);
+                    setDate(new Date(favorite.date).toISOString().split("T")[0]);
                 })
                 .catch((err) => {
                     console.error("Error getting favorite:", err);
@@ -64,7 +64,7 @@ const SavedDestination = () => {
             setWeatherFetched(true);
             handleSearch();
         }
-    }, []);
+    }, [destination, date]);
 
  
 
