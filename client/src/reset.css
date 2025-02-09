@@ -423,12 +423,12 @@ button {
 }
 
 a {
-  color: #ffffff;
+  color: #000000;
   text-decoration: none;
 }
 
 a:hover {
-  color: #ffffff;
+  color: #231885;
   text-decoration: underline;
 }
 

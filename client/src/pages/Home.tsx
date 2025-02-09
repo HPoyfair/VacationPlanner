@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect, useLayoutEffect } from "react";
 import auth from "../utils/auth.js";
 import { getCoordinates, getWeather } from "../api/weatherApi";
@@ -45,6 +44,8 @@ const Home = () => {
   const [hotels, setHotels] = useState<Recommendation[]>([]);
   const [restaurants, setRestaurants] = useState<Recommendation[]>([]);
   const [entertainment, setEntertainment] = useState<Recommendation[]>([]);
+
+  const [itinerarySaved, setItinerarySaved] = useState(false);
 
   useEffect(() => {
     console.log("User:", user);
@@ -142,12 +143,11 @@ const Home = () => {
         console.error("User ID is null or undefined. Cannot save itinerary.");
         return;
       }
-
+  
       const itineraryDate = new Date(date);
-
+  
       const response = await saveFavorite(
         {
-    
           destination: destination,
           date: itineraryDate,
           weatherResponse: "weatherResponse",
@@ -155,8 +155,18 @@ const Home = () => {
         },
         user.id
       );
-
+  
       console.log(response);
+      console.log("Saving itinerary...");
+  
+      setItinerarySaved(true);
+  
+      // Hide the saved message after 3 seconds
+      setTimeout(() => {
+        setItinerarySaved(true); 
+      }, 300);
+  
+      console.log("Itinerary saved!");
     } catch (error) {
       console.error("Error saving itinerary:", error);
     }
@@ -174,60 +184,66 @@ const Home = () => {
       {searchError && <p className="text-red-500 mt-2">{searchError}</p>}
 
       {searchResults && (
-        <div> 
-        <div className="mt-4 p-4 border rounded bg-gray-100">
-           
-           
-          
-          <WeatherDisplay weather={searchResults.weatherResponse} />
-        </div>
-        <div className="recommendations-section">
-        <h2 className="text-center text-xl font-bold mb-4">Local Recommendations</h2>
-        <div className="results-container">
-            <div className="results-box">
+        <div>
+          <div className="mt-4 p-4 border rounded bg-gray-100">
+            <WeatherDisplay weather={searchResults.weatherResponse} />
+          </div>
+          <div className="recommendations-section">
+            <h2 className="text-center text-xl font-bold mb-4">Local Recommendations</h2>
+            <div className="results-container">
+              <div className="results-box">
                 {hotels.map((hotel) => (
-                    <div className="result-card" key={hotel.id}>
-                        <img src={hotel.image} alt={hotel.name} />
-                        <p><strong>{hotel.name}</strong></p>
-                        <p>{hotel.location}</p>
-                        <p className="card-price">{hotel.price}</p>
-                    </div>
+                  <div className="result-card" key={hotel.id}>
+                    <img src={hotel.image} alt={hotel.name} />
+                    <p><strong>{hotel.name}</strong></p>
+                    <p>{hotel.location}</p>
+                    <p className="card-price">{hotel.price}</p>
+                  </div>
                 ))}
-            </div>
+              </div>
 
-            <div className="results-box">
+              <div className="results-box">
                 {restaurants.map((restaurant) => (
-                    <div className="result-card" key={restaurant.id}>
-                        <img src={restaurant.image} alt={restaurant.name} />
-                        <p><strong>{restaurant.name}</strong></p>
-                        <p>{restaurant.location}</p>
-                        <p className="card-price">{restaurant.price}</p>
-                    </div>
+                  <div className="result-card" key={restaurant.id}>
+                    <img src={restaurant.image} alt={restaurant.name} />
+                    <p><strong>{restaurant.name}</strong></p>
+                    <p>{restaurant.location}</p>
+                    <p className="card-price">{restaurant.price}</p>
+                  </div>
                 ))}
-            </div>
+              </div>
 
-            <div className="results-box">
+              <div className="results-box">
                 {entertainment.map((ent) => (
-                    <div className="result-card" key={ent.id}>
-                        <img src={ent.image} alt={ent.name} />
-                        <p><strong>{ent.name}</strong></p>
-                        <p>{ent.location}</p>
-                        <p className="card-price">{ent.price}</p>
-                    </div>
+                  <div className="result-card" key={ent.id}>
+                    <img src={ent.image} alt={ent.name} />
+                    <p><strong>{ent.name}</strong></p>
+                    <p>{ent.location}</p>
+                    <p className="card-price">{ent.price}</p>
+                  </div>
                 ))}
+              </div>
             </div>
-        </div>
-    </div>
+          </div>
 
-      <div className="save-itinerary">
-        <button className="btn" type="button" onClick={saveItinerary}>
-          Save Itinerary
-        </button>
-      </div>
+          <div className="save-itinerary">
+            <button
+              className="btn"
+              type="button"
+              onClick={() => {
+                saveItinerary(); // Call your save function here
+                setItinerarySaved(true); // Update state to display the success message
+              }}
+            >
+              Save Itinerary
+            </button>
+
+            {itinerarySaved && (
+              <p className="save-message">Your itinerary has been saved!</p>
+            )}
+          </div>
         </div>
       )}
-
-
     </div>
   );
 };

@@ -148,7 +148,7 @@ const SavedDestination = () => {
 
     return (
         <div>
-            <h1>Saved Destination</h1>
+            <h2>{destination}</h2>
             {searchError && <p className="text-red-500 mt-2">{searchError}</p>}
 
             {searchResults && (

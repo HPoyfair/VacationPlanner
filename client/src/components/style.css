@@ -74,6 +74,8 @@
   padding: 20px;
   text-align: center;
   width: 30%;
+  margin-bottom: 80px;
+  margin-top: 20px;
 }
 
 .results-box h3 {
@@ -178,5 +180,21 @@
         cursor: pointer;
     }
 
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;  /* Ensure the content takes up the full viewport height */
+    }
 
+    .container {
+      flex: 1;  /* Allow main content to grow and take available space */
+    }
 
+    footer {
+      background-color: #dddddd;
+      color: white;
+      text-align: center;
+      /* margin-top: auto;   */
+      padding-bottom: 5px; 
+      padding-top: 10px; 
+    }
