@@ -11,6 +11,7 @@ import Home from './pages/Home.tsx';
 import Login from './pages/Login.tsx';
 import Signup from './pages/Signup.tsx';
 import SavedDestinations from './pages/SavedDestinations.tsx';
+import SavedDestination from './pages/SavedDestination.tsx';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: '/saved',
         element: <SavedDestinations />
+      },
+      {
+        path: '/view-destination/:id',
+        element: <SavedDestination />
       }
     ]
   }

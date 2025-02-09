@@ -26,6 +26,28 @@ const saveFavorite = async (data: FavoriteSearch, userId: number) => {
     }
 }
 
+const getFavorite = async (favoriteId: number) => {
+    try {
+        const response = await fetch(`/api/users/favorites/${favoriteId}`, {
+            headers: {                
+                Authorization: `Bearer ${Auth.getToken()}`
+            }
+        });
+    
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`${errorData.message}`);
+        }
+    
+        const responseData = await response.json();
+    
+        return responseData;
+    } catch (err) {
+        console.log('Error from getFavorite: ', err);
+        return Promise.reject(err);
+    }
+}
+
 // Get all favorite searches for a user
 const getFavorites = async (userId: number) => {
     try {
@@ -69,4 +91,4 @@ const deleteFavorite = async (userId: number, favoriteId: number) => {
     }
 }
 
-export { saveFavorite, getFavorites, deleteFavorite };
+export { saveFavorite, getFavorites, getFavorite, deleteFavorite };

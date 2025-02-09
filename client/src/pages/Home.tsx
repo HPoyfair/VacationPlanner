@@ -147,6 +147,7 @@ const Home = () => {
 
       const response = await saveFavorite(
         {
+    
           destination: destination,
           date: itineraryDate,
           weatherResponse: "weatherResponse",
