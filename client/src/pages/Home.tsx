@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import auth from "../utils/auth.js";
 import { getCoordinates, getWeather } from "../api/weatherApi";
 import { getPlaces } from "../api/placesApi";
@@ -6,7 +6,6 @@ import { parsePlacesResponse } from "../utils/parsePlaces.js";
 import { PlaceData } from "../interfaces/PlaceData";
 import "../index.css";
 import { saveFavorite } from "../api/appApi.js";
-import { UserData } from "../interfaces/UserData";
 import WeatherDisplay from "../components/WeatherDisplay.js";
 import SearchBar from "../components/searchBar.js";
 import WeatherResponse from "../interfaces/WeatherResponse.js";
@@ -27,12 +26,6 @@ interface Recommendation {
 }
 
 const Home = () => {
-  const [user, setUser] = useState<UserData>({
-    id: 0,
-    username: "",
-    email: "",
-  });
-
   const [loginCheck, setLoginCheck] = useState(false);
 
   const [destination, setDestination] = useState<string>("");
@@ -46,17 +39,7 @@ const Home = () => {
   const [restaurants, setRestaurants] = useState<Recommendation[]>([]);
   const [entertainment, setEntertainment] = useState<Recommendation[]>([]);
 
-  const [itinerarySaved, setItinerarySaved] = useState(false);
-
-  useEffect(() => {
-    console.log("User:", user);
-  }, [user]);
-
-  useEffect(() => {
-    if (loginCheck) {
-      fetchUser();
-    }
-  }, [loginCheck]);
+  const [itinerarySaved, setItinerarySaved] = useState(false);    
 
   useLayoutEffect(() => {
     checkLogin();
@@ -110,11 +93,6 @@ const Home = () => {
     if (auth.loggedIn()) {
       setLoginCheck(true);
     }
-  };
-
-  const fetchUser = () => {
-    setUser(auth.getProfile());
-    console.log('UserData: ' + JSON.stringify(auth.getProfile()));
   };
 
   const handleSearch = async () => {
@@ -171,17 +149,17 @@ const Home = () => {
   }
 
   const saveItinerary = async () => {
-    try {
-      if (!user.id) {
-        console.error("User ID is null or undefined. Cannot save itinerary.");
-        return;
-      }
-  
+    try {  
       const itineraryDate = new Date(date);
 
       // Get the search from local storage
       const storedData = getStored();
   
+      if (storedData === null || !storedData.weather || !storedData.places) {
+        console.error("No stored data found");
+        return;
+      }
+
       const response = await saveFavorite(
         {
           destination: destination,
