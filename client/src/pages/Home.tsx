@@ -161,7 +161,7 @@ const Home = () => {
           date: itineraryDate,
           weatherResponse: JSON.stringify(storedData.weather),
           placesResponse: JSON.stringify(storedData.places)
-        }        
+        },
       );
   
       console.log(response);
