@@ -155,6 +155,11 @@ const Home = () => {
       // Get the search from local storage
       const storedData = getStored();
   
+      if (storedData === null || !storedData.weather || !storedData.places) {
+        console.error("No stored data found");
+        return;
+      }
+
       const response = await saveFavorite(
         {
           destination: destination,

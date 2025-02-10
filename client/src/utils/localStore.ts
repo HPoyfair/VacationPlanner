@@ -3,14 +3,14 @@ const store = (search: string, date: Date, weather: string, places: string) => {
     localStorage.setItem("date", date.toISOString());
     localStorage.setItem("weather", weather);
     localStorage.setItem("places", places);
-    // Store for 10 minutes
-    localStorage.setItem("expires", (new Date(date).getTime() + 600000).toString());
+    // Store for 10 minutes    
+    localStorage.setItem("expires", (Date.now() + 600000).toString());
 }
 
 const getStored = () => {
-    const expires = localStorage.getItem("expires");
+    const expires = localStorage.getItem("expires");    
 
-    if (expires && new Date().getTime() <= Number(expires)) {
+    if (expires && Date.now() <= Number(expires)) {
         return {
             search: localStorage.getItem("search"),
             date: new Date(localStorage.getItem("date") || ""),
