@@ -64,21 +64,32 @@
 @media (max-width: 768px) {
   .recommendation-grid {
     display: flex;
-    flex-direction: column;  /* Stack items vertically */
-    align-items: center;     /* Center items */
-    gap: 15px;               /* Add spacing between stacked items */
+    flex-direction: column;
+    /* Stack items vertically */
+    align-items: center;
+    /* Center items */
+    gap: 15px;
+    /* Add spacing between stacked items */
   }
 
   .recommendation-card {
-    width: 95%; /* Make each card take up most of the screen width */
-    max-width: 450px; /* Prevent cards from being too large */
-    padding: 20px; /* More padding inside */
+    width: 95%;
+    /* Make each card take up most of the screen width */
+    max-width: 450px;
+    /* Prevent cards from being too large */
+    padding: 20px;
+    /* More padding inside */
   }
 }
-@media (max-width: 480px) {  /* For very small screens */
+
+@media (max-width: 480px) {
+
+  /* For very small screens */
   .recommendation-card {
-    width: 100%; /* Take full width */
-    max-width: 400px; /* Prevent stretching */
+    width: 100%;
+    /* Take full width */
+    max-width: 400px;
+    /* Prevent stretching */
   }
 }
 
@@ -90,25 +101,37 @@
 .results-container {
   display: flex;
   justify-content: space-around;
-  flex-wrap: wrap;  /* Allows wrapping on smaller screens */
+  flex-wrap: wrap;
+  /* Allows wrapping on smaller screens */
   margin-top: 20px;
-  gap: 20px; /* Add spacing between boxes */
+  gap: 20px;
+  /* Add spacing between boxes */
 }
+
 @media (max-width: 768px) {
   .results-container {
-    flex-direction: row; /* Display items horizontally */
-    align-items: flex-start; /* Align items to the top */
-    overflow-x: auto; /* Allow horizontal scrolling if needed */
-    padding-bottom: 20px; /* Add some padding at the bottom */
+    flex-direction: row;
+    /* Display items horizontally */
+    align-items: flex-start;
+    /* Align items to the top */
+    overflow-x: auto;
+    /* Allow horizontal scrolling if needed */
+    padding-bottom: 20px;
+    /* Add some padding at the bottom */
   }
 
   .results-box {
-    width: 45%; /* Make each box take less width to fit side by side */
-    max-width: none; /* Remove max-width restriction */
-    flex: 0 0 auto; /* Prevent flex items from shrinking */
-    margin-bottom: 0; /* Remove bottom margin */
+    width: 45%;
+    /* Make each box take less width to fit side by side */
+    max-width: none;
+    /* Remove max-width restriction */
+    flex: 0 0 auto;
+    /* Prevent flex items from shrinking */
+    margin-bottom: 0;
+    /* Remove bottom margin */
   }
 }
+
 .results-box {
   background-color: #ffffff;
   border-radius: 8px;
@@ -122,9 +145,11 @@
 
 @media (max-width: 480px) {
   .results-box {
-    width: 90%; /* Make each box take more width on very small screens */
+    width: 90%;
+    /* Make each box take more width on very small screens */
   }
 }
+
 .results-box h3 {
   font-size: 1.2rem;
   margin-bottom: 10px;
@@ -217,37 +242,42 @@ nav ul li {
   border-radius: 2px;
 }
 
+@media (max-width: 768px) {
+  .nav_link.active::after {
+    height: 0;
+  }
+}
 
+.btn {
+  background-color: #FA7436;
+  border: none;
+  color: white;
+  padding: 8 px 28 px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
 
-  .btn
-    {
-        background-color: #FA7436;
-        border: none;
-        color: white;
-        padding: 8 px 28 px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 14px;
-        margin: 4px 2px;
-        cursor: pointer;
-    }
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* Ensure the content takes up the full viewport height */
+}
 
-    .app-container {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;  /* Ensure the content takes up the full viewport height */
-    }
+.container {
+  flex: 1;
+  /* Allow main content to grow and take available space */
+}
 
-    .container {
-      flex: 1;  /* Allow main content to grow and take available space */
-    }
-
-    footer {
-      background-color: #69848a;
-      color: white;
-      text-align: center;
-      /* margin-top: auto;   */
-      padding-bottom: 5px; 
-      padding-top: 10px; 
-    }
+footer {
+  background-color: #69848a;
+  color: white;
+  text-align: center;
+  /* margin-top: auto;   */
+  padding-bottom: 5px;
+  padding-top: 10px;
+}
