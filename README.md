@@ -2,6 +2,13 @@
 
 A user-friendly web application designed to help you plan your perfect vacation. The application allows users to explore weather conditions and travel options, saving time and effort while planning their trips. With an interactive UI and intuitive features, VacationPlanner makes vacation planning a breeze.
 
+**Live Demo:** [VacationPlanner on Render](https://vacationplanner-v88a.onrender.com/)  
+**GitHub Repository:** [GitHub Repo](https://github.com/HPoyfair/VacationPlanner)  
+
+![VacationPlanner Screenshot HomePage](/client/public/HomePage.png)
+![VacationPlanner Screenshot SavedDestinationPage](/client/public/SavedDestinationPage.png)
+
+
 ## Features
 
 - **Vacation Search**: Easily search for destinations and get weather forecast for the selected travel date.
