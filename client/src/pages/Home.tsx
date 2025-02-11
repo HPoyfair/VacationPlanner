@@ -110,7 +110,7 @@ const Home = () => {
     setEntertainment([]);
 
     if (!destination || !date) {
-      alert("Please enter both location and date.");
+      setSearchError("Please enter both location and date.");
       return;
     }
 
@@ -203,7 +203,7 @@ const Home = () => {
         handleSearch={handleSearch}
       />
       </div>
-      {searchError && <p className="text-red-500 mt-2">{searchError}</p>}
+      {searchError && <p className= "error" >{searchError}</p>}
 
       {isLoading && (<div className="loadingDiv"><img src='./orange_loading.gif' width='30%' alt="Loading..." /></div>)}
 
@@ -271,7 +271,7 @@ const Home = () => {
               <p className="save-message">This destination has been saved!</p>
             )}
             </div>
-      
+   
         </div>
     )}
 

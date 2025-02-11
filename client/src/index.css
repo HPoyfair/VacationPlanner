@@ -205,6 +205,7 @@ tbody tr:nth-child(odd) {
   border-radius: 5px;
 }
 
+
 .btn-save {
   display: flex;
   justify-content: center;
@@ -240,6 +241,7 @@ a {
 
 .error {
   color: red;
+  text-align: center;
 }
 
 .login-link {
