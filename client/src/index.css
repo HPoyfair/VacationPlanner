@@ -1,6 +1,6 @@
 html,
 .app-container {
-  background: url('/home-bg.jpeg') no-repeat center center fixed;
+  background: url('/clouds.JPG') no-repeat center center fixed;
   background-size: cover;
   min-height: 100vh;
   display: flex;
