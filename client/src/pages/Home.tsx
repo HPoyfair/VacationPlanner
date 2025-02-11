@@ -203,7 +203,7 @@ const Home = () => {
         handleSearch={handleSearch}
       />
       </div>
-      {searchError && <p className= "error" >{searchError}</p>}
+      {searchError && <p className= "error centered" >{searchError}</p>}
 
       {isLoading && (<div className="loadingDiv"><img src='./orange_loading.gif' width='30%' alt="Loading..." /></div>)}
 

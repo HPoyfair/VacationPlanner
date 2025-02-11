@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom'; // Import useLocation
+import { Link, useNavigate, useLocation } from 'react-router-dom'; // Import useLocation
 import auth from '../utils/auth';
 import './style.css';
 
 const Navbar = () => {
   const [loginCheck, setLoginCheck] = useState(false);
   const location = useLocation(); // Get current route
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (auth.loggedIn()) {
@@ -31,17 +32,19 @@ const Navbar = () => {
         </ul>
       </nav>
       <div className="display-flex justify-space-between align-center">
-        <div>
-          {!loginCheck ? (
-            <button className="btn" type='button'>
-              <Link to='/login'>Login</Link>
-            </button>
-          ) : (
-            <button className="btn" type='button' onClick={() => auth.logout()}>
-              Logout
-            </button>
-          )}
-        </div>
+        {location.pathname !== '/login' && (
+          <div>
+            {!loginCheck ? (
+              <button className="btn" type='button' onClick={() => navigate('/login')}>
+                Login
+              </button>
+            ) : (
+              <button className="btn" type='button' onClick={() => auth.logout()}>
+                Logout
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

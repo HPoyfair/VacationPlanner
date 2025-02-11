@@ -73,7 +73,7 @@ const Login = () => {
         </div>
         {/* Submit button for the login form */}
         <div className="form-group">
-          <button className="btn btn-primary" type='submit'>Login</button>
+          <button className="btn" type='submit'>Login</button>
         </div>
         <p className="error">{errorMessage}</p>
       </form>
