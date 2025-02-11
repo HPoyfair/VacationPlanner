@@ -190,7 +190,11 @@ const Home = () => {
   };
 
   return (
+    
     <div>
+          {/* Background Container */}
+     <div>
+
       <SearchBar
         destination={destination}
         setDestination={setDestination}
@@ -198,6 +202,7 @@ const Home = () => {
         setDate={setDate}
         handleSearch={handleSearch}
       />
+      </div>
       {searchError && <p className="text-red-500 mt-2">{searchError}</p>}
 
       {isLoading && (<div className="loadingDiv"><img src='./orange_loading.gif' width='30%' alt="Loading..." /></div>)}

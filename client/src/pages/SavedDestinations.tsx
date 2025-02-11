@@ -1,5 +1,6 @@
 // import { FavoriteSearch } from '../interfaces/FavoriteSearch';
 import { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import '../index.css';
 import { getFavorites } from '../api/appApi';
 import { deleteFavorite } from '../api/appApi';
@@ -40,8 +41,8 @@ export default function SavedDestinations() {
     }, [favorites]);
 
 
-    if (!Auth.loggedIn()) {
-        window.location.href = '/login';
+    if (!Auth.loggedIn()) {        
+        Navigate({ to: '/login' });
         return;
     }
 
