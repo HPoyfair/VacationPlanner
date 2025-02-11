@@ -185,7 +185,11 @@ const Home = () => {
   };
 
   return (
+    
     <div>
+          {/* Background Container */}
+     <div>
+
       <SearchBar
         destination={destination}
         setDestination={setDestination}
@@ -193,6 +197,7 @@ const Home = () => {
         setDate={setDate}
         handleSearch={handleSearch}
       />
+      </div>
       {searchError && <p className="text-red-500 mt-2">{searchError}</p>}
 
       {weatherResults && (
