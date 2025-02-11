@@ -27,6 +27,7 @@ interface Recommendation {
 
 const Home = () => {
   const [loginCheck, setLoginCheck] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [destination, setDestination] = useState<string>("");
   const [date, setDate] = useState<string>("");
@@ -113,6 +114,8 @@ const Home = () => {
       return;
     }
 
+    setIsLoading(true);
+
     try {
       const location = await getCoordinates(destination);
       const weather = await getWeather(location.lat, location.lon, date);
@@ -142,6 +145,8 @@ const Home = () => {
       console.error("Error fetching data:", error);
       setSearchError("Error fetching data. Try again.");
     }
+
+    setIsLoading(false);
   };
 
   const ratingString = (rating: number) => {
@@ -194,6 +199,8 @@ const Home = () => {
         handleSearch={handleSearch}
       />
       {searchError && <p className="text-red-500 mt-2">{searchError}</p>}
+
+      {isLoading && (<div className="loadingDiv"><img src='./orange_loading.gif' width='30%' alt="Loading..." /></div>)}
 
       {weatherResults && (
         <div> 
