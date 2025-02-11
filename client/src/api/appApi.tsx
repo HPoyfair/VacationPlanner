@@ -11,7 +11,7 @@ const saveFavorite = async (data: FavoriteSearch) => {
                 Authorization: `Bearer ${Auth.getToken()}`
             },
             body: JSON.stringify(data)
-        });
+        });        
     
         if (!response.ok) {
             const errorData = await response.json();
