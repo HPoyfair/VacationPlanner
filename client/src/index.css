@@ -68,28 +68,56 @@ body {
   background-color: #bebebe;
 }
 
+.signupLink {
+  color: black;
+}
+
+.signupLink p:nth-child(2) {
+  display: none;
+}
+
 /* Mobile-specific adjustments (when cards stack) */
 @media (max-width: 768px) {
   .search-bar {
-    flex-direction: column; /* Stack items vertically */
-    gap: 15px; /* Add spacing between stacked items */
-    padding: 15px 20px; /* Adjust padding for mobile */
+    flex-direction: column;
+    /* Stack items vertically */
+    gap: 15px;
+    /* Add spacing between stacked items */
+    padding: 15px 20px;
+    /* Adjust padding for mobile */
   }
 
   .search-bar input[type="text"],
   .search-bar input[type="date"] {
-    max-width: none; /* Allow inputs to take more width */
-    width: 100%; /* Make inputs take full width */
-    margin-right: 0; /* Remove margin between inputs */
-    font-size: 18px; /* Increase font size for better readability */
-    padding: 15px; /* Increase padding for easier tapping */
+    max-width: none;
+    /* Allow inputs to take more width */
+    width: 100%;
+    /* Make inputs take full width */
+    margin-right: 0;
+    /* Remove margin between inputs */
+    font-size: 18px;
+    /* Increase font size for better readability */
+    padding: 15px;
+    /* Increase padding for easier tapping */
   }
 
   .search-bar button {
-    width: 100%; /* Make button take full width */
-    max-width: 300px; /* Limit button width for better appearance */
-    font-size: 18px; /* Increase button font size */
-    padding: 15px; /* Increase button padding for easier tapping */
+    width: 100%;
+    /* Make button take full width */
+    max-width: 300px;
+    /* Limit button width for better appearance */
+    font-size: 18px;
+    /* Increase button font size */
+    padding: 15px;
+    /* Increase button padding for easier tapping */
+  }
+
+  .signupLink p:nth-child(1) {
+    display: none;
+  }
+
+  .signupLink p:nth-child(2) {
+    display: block;
   }
 }
 
