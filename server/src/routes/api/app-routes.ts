@@ -28,7 +28,7 @@ router.post('/favorite', async (req: Request, res: Response) => {
                 userId: user.id
             });
 
-            res.status(200);
+            res.status(200).json({ message: 'Favorite search saved' });
         } else {
             res.status(404).json({ message: 'User not found' });
         }

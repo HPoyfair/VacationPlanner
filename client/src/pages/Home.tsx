@@ -48,9 +48,16 @@ const Home = () => {
 
     if (storedData && storedData.places && storedData.weather) {
       setDestination(storedData.search || "");
-      setDate(storedData.date.toISOString());
+      setDate(storedData.date.toISOString().substring(0, 10)); // Formats the date to YYYY-MM-DD
       populatePlaces(JSON.parse(storedData.places));
       setWeatherResults({weatherResponse: JSON.parse(storedData.weather)});
+    } else {
+      setDestination("");
+      setDate("");
+      setHotels([]);
+      setRestaurants([]);
+      setEntertainment([]);
+      setWeatherResults(null);
     }
   }, []);
 
@@ -153,12 +160,12 @@ const Home = () => {
       const itineraryDate = new Date(date);
 
       // Get the search from local storage
-      const storedData = getStored();
-  
+      const storedData = getStored();      
+
       if (storedData === null || !storedData.weather || !storedData.places) {
         console.error("No stored data found");
         return;
-      }
+      }      
 
       const response = await saveFavorite(
         {
@@ -167,21 +174,13 @@ const Home = () => {
           weatherResponse: JSON.stringify(storedData.weather),
           placesResponse: JSON.stringify(storedData.places)
         },
-      );
-  
+      );            
+
       console.log(response);
-      console.log("Saving itinerary...");
-  
+      clearStore();
       setItinerarySaved(true);
-  
-      // Hide the saved message after 3 seconds
-      setTimeout(() => {
-        setItinerarySaved(true); 
-      }, 300);
-  
-      console.log("Itinerary saved!");
     } catch (error) {
-      console.error("Error saving itinerary:", error);
+      console.error("Error saving destination:", error);
     }
   };
 
@@ -249,18 +248,15 @@ const Home = () => {
             <button
               className="btn"
               type="button"
-              onClick={() => {
-                saveItinerary(); // Call your save function here
-                setItinerarySaved(true); // Update state to display the success message
-              }}
+              onClick={() => saveItinerary() } 
             >
-                  Save Itinerary
+                  Save Destination
                 </button>) :
-            <Link to="/login"><p className="login-link">Login to save this result!</p></Link>
+            <Link to="/login"><p className="login-link">Login to save this destination!</p></Link>
         }
 
             {itinerarySaved && (
-              <p className="save-message">Your itinerary has been saved!</p>
+              <p className="save-message">This destination has been saved!</p>
             )}
             </div>
       

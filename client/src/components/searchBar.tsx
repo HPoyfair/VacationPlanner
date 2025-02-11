@@ -9,24 +9,30 @@ interface SearchBarProps {
 
 const SearchBar = ({destination, setDestination, date, setDate, handleSearch}: SearchBarProps) => {
     return (
-        <div className="search-bar">
-        <input
-            type="text"
-            placeholder="Enter destination"
-            value={destination}
-            onChange={(e) => setDestination(e.target.value)}
-        />
-        <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-        />
-        <button
-            onClick={handleSearch}
-        >
-            Search
-        </button>
-    </div> 
+        <form>
+            <div className="search-bar">
+                <input
+                    type="text"
+                    placeholder="Enter destination"
+                    value={destination}
+                    onChange={(e) => setDestination(e.target.value)}
+                />
+                <input
+                    type="date"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                />
+                <button
+                    type="submit"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        handleSearch();
+                    }}
+                >
+                    Search
+                </button>
+            </div> 
+        </form>
     )
 }
 
