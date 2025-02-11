@@ -5,7 +5,7 @@ import { getFavorites } from '../api/appApi';
 import { deleteFavorite } from '../api/appApi';
 import { SavedFavoriteSearch } from '../interfaces/FavoriteSearch';
 import { Link } from 'react-router-dom';
-
+import Auth from '../utils/auth';
 
 export default function SavedDestinations() {
     const [favorites, setFavorites] = useState<SavedFavoriteSearch[]>([]);
@@ -39,6 +39,11 @@ export default function SavedDestinations() {
         console.log('Favorites:', favorites);
     }, [favorites]);
 
+
+    if (!Auth.loggedIn()) {
+        window.location.href = '/login';
+        return;
+    }
 
     return (
         <div className="table-container">
