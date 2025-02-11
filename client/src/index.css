@@ -1,4 +1,12 @@
 html,
+.app-container {
+  background: url('/home-bg.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 body {
   background-color: #f8f7f5;
   /* Change to your desired color */
@@ -9,12 +17,11 @@ body {
   height: 100%;
 }
 
-
 .search-bar {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.8); 
+  background: rgba(255, 255, 255, 0.8);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 15px 30px;
   border-radius: 8px;
@@ -61,6 +68,31 @@ body {
   background-color: #bebebe;
 }
 
+/* Mobile-specific adjustments (when cards stack) */
+@media (max-width: 768px) {
+  .search-bar {
+    flex-direction: column; /* Stack items vertically */
+    gap: 15px; /* Add spacing between stacked items */
+    padding: 15px 20px; /* Adjust padding for mobile */
+  }
+
+  .search-bar input[type="text"],
+  .search-bar input[type="date"] {
+    max-width: none; /* Allow inputs to take more width */
+    width: 100%; /* Make inputs take full width */
+    margin-right: 0; /* Remove margin between inputs */
+    font-size: 18px; /* Increase font size for better readability */
+    padding: 15px; /* Increase padding for easier tapping */
+  }
+
+  .search-bar button {
+    width: 100%; /* Make button take full width */
+    max-width: 300px; /* Limit button width for better appearance */
+    font-size: 18px; /* Increase button font size */
+    padding: 15px; /* Increase button padding for easier tapping */
+  }
+}
+
 /* Home.css */
 
 /* General container styling */
@@ -93,7 +125,7 @@ body {
   background-color: #FA7436;
   border: none;
   color: white;
-  padding: 8 px 28 px;
+  padding: 8px 28px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -108,16 +140,6 @@ body {
   font-size: 10px;
 }
 
-/* 
-tr {
-  border-radius: 10px;
-  background-color: #ffffff;
-  color: rgb(0, 0, 0);
-}
-
-tbody tr:nth-child(odd) {
-  background-color: #ffffff;
-} */
 .table-container {
   display: flex;
   justify-content: center;
@@ -193,14 +215,12 @@ tbody tr:nth-child(odd) {
   padding-bottom: 80px;
   flex-direction: column;
   align-items: center;
-  /* */
 }
 
 .save-message {
   color: rgb(11, 187, 11);
   font-size: 14px;
   margin-top: 10px;
-  /* */
   padding: 10px;
   border-radius: 5px;
 }
@@ -222,7 +242,6 @@ h2 {
   margin-top: 20px;
 }
 
-
 .btn-remove:hover {
   background: #c82333;
 }
@@ -230,7 +249,6 @@ h2 {
 a {
   color: white;
 }
-
 
 .no-data {
   text-align: center;
@@ -248,7 +266,6 @@ a {
 
 .loadingDiv {
   position: relative;
-  /* width: 100vw; */
 }
 
 .loadingDiv img {
